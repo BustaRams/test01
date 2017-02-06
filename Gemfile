@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+ruby "2.3.1p112"
 
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
@@ -7,7 +8,6 @@ end
 
 
 gem 'rails', '~> 5.0.1'
-gem 'sqlite3'
 gem 'puma', '~> 3.0'
 gem 'sass-rails', '~> 5.0'
 gem 'simple_form', '~> 3.4'
@@ -25,10 +25,15 @@ gem 'inherited_resources', git: 'https://github.com/activeadmin/inherited_resour
 
 group :development, :test do
   gem 'byebug', platform: :mri
+  gem 'sqlite3'
 end
 
 group :development do
   gem 'web-console', '>= 3.3.0'
+end
+
+group :production do
+	gem 'pg'
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
