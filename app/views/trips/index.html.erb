@@ -1,0 +1,9 @@
+<h1 class="current-category"><%= params[:category] %></h1>
+
+	<% if @trips.count == 0 %>
+		<h1>There are no trips in this category yet, be the first one to create one !</h1>
+	<% else %>
+	<% @trips.each do |trip| %>
+		<h2><%= link_to trip.title, trip_path(trip) %></h2>
+	<% end %>
+	<% end %>
