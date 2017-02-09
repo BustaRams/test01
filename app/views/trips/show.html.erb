@@ -1,8 +1,30 @@
-<h1>Category : <%= @trip.category.name %></h1>
-<h2><%= @trip.title %></h2>
-<h3><%= @trip.start %></h3>
-<h4><%= @trip.language %></h4>
-<p><%= @trip.description %></p>
+<div class="row">
+
+	<div class="col-md-4">
+
+		<%= image_tag @trip.trip_img.url(:grande_img), class: "grande-img" %>
+
+	</div>
+
+	<div class="col-md-8" id="cadre">
+
+		<h2><%= @trip.title %></h2>
+		<h3><%= @trip.start %></h3>
+		<h4><%= @trip.language %></h4>
+		<p><%= @trip.description %></p>
+
+	</div>
+
+</div>
+
+<div class="row">
+	
+	<div class="col-md-4">
+		
+<!-- la ou le chat / notes seront -->
+	</div>
+
+</div>
 
 <%= link_to "Home", root_path %>
 

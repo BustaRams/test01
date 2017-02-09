@@ -3,7 +3,17 @@
 	<% if @trips.count == 0 %>
 		<h1>There are no trips in this category yet, be the first one to create one !</h1>
 	<% else %>
+
+	<div class="row">
+
 	<% @trips.each do |trip| %>
-		<h2><%= link_to trip.title, trip_path(trip) %></h2>
+
+		<div class="col-md-4">
+			<a href="/trips/<%= trip.id %>">
+				<%= image_tag trip.trip_img.url(:mini_img), class: "trip" %>
+			</a>
+		</div>
 	<% end %>
-	<% end %>
+
+	</div>
+<% end %>

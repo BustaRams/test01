@@ -1,5 +1,6 @@
 <%= simple_form_for @trip, :html => { :multipart => true } do |f| %>
 	<%= select_tag(:category_id, options_for_select(@categories), :prompt => "Select a Category") %>
+	<%= f.file_field :trip_img %>
 	<%= f.input :title, label: "Trip Title" %>
 	<%= f.input :description %>
 	<%= f.input :language %>

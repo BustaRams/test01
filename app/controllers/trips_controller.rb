@@ -50,7 +50,7 @@ before_action :find_trip, only: [:show, :edit, :update, :destroy]
 	private
 
 		def trip_params
-			params.require(:trip).permit(:title, :description, :language, :start, :category_id)
+			params.require(:trip).permit(:title, :description, :language, :start, :category_id, :trip_img)
 		end
 
 		def find_trip

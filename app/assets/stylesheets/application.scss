@@ -15,3 +15,19 @@
  */
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+.trip {
+	height: 250px;
+	width: 350px;
+}
+
+.grande-img {
+	height: 325px;
+	width: 475px;
+}
+
+#cadre {
+	border: 1px solid blue;
+	overflow:overlay;
+	margin-left: 50%;
+}
