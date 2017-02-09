@@ -20,6 +20,8 @@ gem 'jbuilder', '~> 2.5'
 gem 'bcrypt', git: 'https://github.com/codahale/bcrypt-ruby.git', :require => 'bcrypt'
 gem 'activeadmin', '~> 1.0.0.pre4'
 gem 'inherited_resources', git: 'https://github.com/activeadmin/inherited_resources'
+gem 'thin'
+
 
 
 group :development, :test do
