@@ -10,6 +10,16 @@
       <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
     <% end %>
 
+    <div class="form-group">
+      <%= f.label :First_name %>
+      <%= f.text_field :First_name, autofocus: true, class: "form-control", placeholder: "John" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :Last_name %>
+      <%= f.text_field :Last_name, autofocus: true, class: "form-control", placeholder: "Smith" %>
+    </div>
+
     <%= f.input :password, autocomplete: "off", hint: "leave it blank if you don't want to change it", required: false %>
     <%= f.input :password_confirmation, required: false %>
     <%= f.input :current_password, hint: "we need your current password to confirm your changes", required: true %>
