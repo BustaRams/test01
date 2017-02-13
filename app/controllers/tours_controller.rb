@@ -1,5 +1,5 @@
 class ToursController < ApplicationController
-  before_action :set_tour, only: [:show, :edit, :update, :destroy]
+  before_action :set_tour, only: [:show, :edit, :update, :destroy, :subscribe, :unsubscribe]
 
   # GET /tours
   def index
@@ -56,6 +56,28 @@ class ToursController < ApplicationController
     @tour.owner == current_user || not_found
     @tour.destroy
     redirect_to tours_url, notice: 'Tour was successfully destroyed.'
+  end
+
+  def subscribe
+    if current_user.tours_users.acive.where(tour: @tour, kicked: false).any?
+      redirect_to tour_path(@tour), :flash => { notice: 'You are already subscribed.' }
+    elsif current_user.tours_users.acive.where(tour: @tour, kicked: true).any?
+      redirect_to tour_path(@tour), :flash => { alert: 'The trip owner has limited your access to this page.' }
+    else
+      current_user.tours_users.create(tour: @tour)
+      redirect_to tour_path(@tour), :flash => { notice: 'You are subscribed successfully.' }
+    end
+  end
+
+  def unsubscribe
+    subscription = current_user.tours_users.acive.where(tour: @tour).first
+    if subscription.present?
+      subscription.update_attribute(:active_subscription, false)
+      redirect_to tour_path(@tour), :flash => { notice: 'You are unsubscribed.' }
+    else
+      redirect_to tour_path(@tour), :flash => { alert: 'You don`t have active subscription to this trip.' }
+      render :show
+    end
   end
 
   private

@@ -1,7 +1,8 @@
 class Tour < ApplicationRecord
   belongs_to :category
   belongs_to :owner, class_name: 'User', foreign_key: 'owner_id'
-  has_and_belongs_to_many  :users
+  has_many :tours_users
+  has_many :users, through: :tours_users
 
   validates_presence_of :name, :description, :owner_id, :start_time
 
