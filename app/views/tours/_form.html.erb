@@ -1,0 +1,18 @@
+<%= simple_form_for(@tour) do |f| %>
+    <%= f.error_notification %>
+
+    <div class="form-inputs">
+      <%= f.input :name %>
+      <%= f.input :description %>
+      <%= f.input :start_time %>
+
+      <div form-group select mandatory category>
+        <%= f.label 'Category' %>
+        <%= f.select :category_id, @categories, { label: "Choose a category:" }, { class: "form-control select" } %>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <%= f.button :submit %>
+    </div>
+<% end %>

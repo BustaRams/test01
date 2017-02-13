@@ -40,14 +40,14 @@
         <ul class="dropdown-menu" role="menu">
           <% Category.all.each do |category| %>
               <li class="<%= 'active' if params[:category] == category.name %>">
-                <%= link_to category.name, trips_path(category: category.name), class: "link" %>
+                <%= link_to category.name, tours_path(category: category.name), class: "link" %>
               </li>
           <% end %>
         </ul>
 
       </li>
       <% if user_signed_in? %>
-          <li><%= link_to "Create Trip", new_trip_path %></li>
+          <li><%= link_to "Create Trip", new_tour_path %></li>
       <% end %>
 
     </ul>

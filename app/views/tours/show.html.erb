@@ -1,0 +1,27 @@
+<p>
+  <strong>Name:</strong>
+  <%= @tour.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @tour.description %>
+</p>
+
+<p>
+  <strong>Owner:</strong>
+  <%= @tour.owner.Last_name %>
+</p>
+
+<p>
+  <strong>Start time:</strong>
+  <%= @tour.start_time %>
+</p>
+
+<p>
+  <strong>Category:</strong>
+  <%= @tour.category.name %>
+</p>
+
+<%= link_to 'Edit', edit_tour_path(@tour) %> |
+<%= link_to 'Back', tours_path %>
