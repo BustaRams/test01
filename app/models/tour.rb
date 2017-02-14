@@ -8,6 +8,13 @@ class Tour < ApplicationRecord
 
   validates_presence_of :name, :description, :owner_id, :start_time
 
-  #has_attached_file :trip_img, styles: { mini_img: "350x250>", grande_img: "475x325>" }, default_url: "/images/:style/missing.png"
-  #validates_attachment_content_type :trip_img, content_type: /\Aimage\/.*\z/
+  has_attached_file :tour_img, styles: {
+      thumb: '100x100>',
+      mini_img: '350x250>',
+      grande_img: '475x325>'
+  }, default_url: "/images/missing.jpg"
+
+  # Validate the attached image is image/jpg, image/png, etc
+  validates_attachment_content_type :tour_img, :content_type => /\Aimage\/.*\Z/
+
 end

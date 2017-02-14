@@ -9,7 +9,12 @@
       <div form-group select mandatory category>
         <%= f.label 'Category' %>
         <%= f.select :category_id, @categories, { label: "Choose a category:" }, { class: "form-control select" } %>
-      </div>
+      </div><br>
+
+      <div form-group select mandatory category>
+        <%= f.label 'Trip Image' %>
+        <%= f.file_field :tour_img %>
+      </div><br>
     </div>
 
     <div class="form-actions">
