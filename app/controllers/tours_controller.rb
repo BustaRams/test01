@@ -1,6 +1,6 @@
 class ToursController < ApplicationController
-  before_action :set_tour, only: [:show, :edit, :update, :destroy,
-                                  :subscribe, :unsubscribe, :post_idea, :delete_idea, :kick_user]
+  before_action :set_tour, only: [:show, :edit, :update, :destroy, :subscribe, :unsubscribe,
+                                  :post_idea, :delete_idea, :kick_user, :unlock_tour, :lock_tour]
 
   before_action :authenticate_user!, except: :index
 
@@ -70,7 +70,9 @@ class ToursController < ApplicationController
   end
 
   def subscribe
-    if current_user.tours_users.active.where(tour: @tour, kicked: false).any?
+    if @tour.locked?
+      redirect_to tour_path(@tour), :flash => { notice: 'This group is locked by the organiser.' }
+    elsif current_user.tours_users.active.where(tour: @tour, kicked: false).any?
       redirect_to tour_path(@tour), :flash => { notice: 'You are already subscribed.' }
     elsif current_user.tours_users.active.where(tour: @tour, kicked: true).any?
       redirect_to tour_path(@tour), :flash => { alert: 'The trip owner has limited your access to this page.' }
@@ -122,6 +124,24 @@ class ToursController < ApplicationController
       redirect_to tour_path(@tour), :flash => { notice: 'User is kicked out of this trip.' }
     else
       redirect_to tour_path(@tour), :flash => { alert: 'The user subscription is not found.' }
+    end
+  end
+
+  def unlock_tour
+    @tour.owner == current_user || not_found
+    if @tour.update_attribute(:locked, false)
+      redirect_to tour_path(@tour), :flash => { notice: 'The tour is unlocked.' }
+    else
+      redirect_to tour_path(@tour), :flash => { alert: 'A problem has occurred. Try again later.' }
+    end
+  end
+
+  def lock_tour
+    @tour.owner == current_user || not_found
+    if @tour.update_attribute(:locked, true)
+      redirect_to tour_path(@tour), :flash => { notice: 'The tour is locked.' }
+    else
+      redirect_to tour_path(@tour), :flash => { alert: 'A problem has occurred. Try again later.' }
     end
   end
 

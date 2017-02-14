@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170214185654) do
+ActiveRecord::Schema.define(version: 20170214213634) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -77,12 +77,13 @@ ActiveRecord::Schema.define(version: 20170214185654) do
     t.integer  "owner_id"
     t.datetime "start_time"
     t.integer  "category_id"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
     t.string   "tour_img_file_name"
     t.string   "tour_img_content_type"
     t.integer  "tour_img_file_size"
     t.datetime "tour_img_updated_at"
+    t.boolean  "locked",                default: false
   end
 
   create_table "tours_users", force: :cascade do |t|

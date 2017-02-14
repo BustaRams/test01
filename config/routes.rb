@@ -15,4 +15,7 @@ Rails.application.routes.draw do
 
   post '/tours/:id/idea', to: 'tours#post_idea', as: 'tours_new_idea'
   delete '/tours/:id/ideas/', to: 'tours#delete_idea', as: 'tours_delete_idea'
+
+  post '/tours/:id/lock', to: 'tours#lock_tour', as: 'tours_lock'
+  post '/tours/:id/unlock', to: 'tours#unlock_tour', as: 'tours_unlock'
 end

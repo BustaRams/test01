@@ -15,6 +15,12 @@
       <div class="col-sm-12">
         <% if @tour.owner != current_user %>
             <%= render 'tours/subs_buttons' %>
+        <% else %>
+            <% if @tour.locked? %>
+                <%= link_to 'Unlock the tour', tours_unlock_path(@tour), method: :post%>
+            <% else %>
+                <%= link_to 'Lock the tour', tours_lock_path(@tour), method: :post%>
+            <% end %>
         <% end %>
       </div>
     </div>
