@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170213223950) do
+ActiveRecord::Schema.define(version: 20170214081940) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -71,21 +71,6 @@ ActiveRecord::Schema.define(version: 20170213223950) do
     t.index ["active_subscription"], name: "index_tours_users_on_active_subscription"
     t.index ["tour_id"], name: "index_tours_users_on_tour_id"
     t.index ["user_id"], name: "index_tours_users_on_user_id"
-  end
-
-  create_table "trips", force: :cascade do |t|
-    t.string   "title"
-    t.text     "description"
-    t.string   "language"
-    t.string   "start"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
-    t.integer  "user_id"
-    t.integer  "category_id"
-    t.string   "trip_img_file_name"
-    t.string   "trip_img_content_type"
-    t.integer  "trip_img_file_size"
-    t.datetime "trip_img_updated_at"
   end
 
   create_table "users", force: :cascade do |t|
