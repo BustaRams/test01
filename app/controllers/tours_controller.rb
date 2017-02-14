@@ -19,6 +19,7 @@ class ToursController < ApplicationController
     @messages = @tour.messages.includes(:user)
     @message = Message.new
     @members = @tour.tours_users.includes(:user)
+    @allowed_user =  current_user == @tour.owner || @tour.tours_users.active.where(user: current_user, kicked: false).first.present?
   end
 
   # GET /tours/new
@@ -65,18 +66,18 @@ class ToursController < ApplicationController
   end
 
   def subscribe
-    if current_user.tours_users.acive.where(tour: @tour, kicked: false).any?
+    if current_user.tours_users.active.where(tour: @tour, kicked: false).any?
       redirect_to tour_path(@tour), :flash => { notice: 'You are already subscribed.' }
-    elsif current_user.tours_users.acive.where(tour: @tour, kicked: true).any?
+    elsif current_user.tours_users.active.where(tour: @tour, kicked: true).any?
       redirect_to tour_path(@tour), :flash => { alert: 'The trip owner has limited your access to this page.' }
     else
-      current_user.tours_users.create(tour: @tour)
+      current_user.tours_users.where(tour: @tour).first_or_create
       redirect_to tour_path(@tour), :flash => { notice: 'You are subscribed successfully.' }
     end
   end
 
   def unsubscribe
-    subscription = current_user.tours_users.acive.where(tour: @tour).first
+    subscription = current_user.tours_users.active.where(tour: @tour).first
     if subscription.present?
       subscription.update_attribute(:active_subscription, false)
       redirect_to tour_path(@tour), :flash => { notice: 'You are unsubscribed.' }

@@ -1,39 +1,65 @@
-<p>
-  <strong>Name:</strong>
-  <%= @tour.name %>
-</p>
+<div class="row">
+  <div class="col-sm-12">
+    <h1> <%= @tour.name %> </h1>
+  </div>
+</div>
 
-<p>
-  <strong>Description:</strong>
-  <%= @tour.description %>
-</p>
+<div class="row">
+  <div class="col-sm-6">
+    <%= render 'tours/members' %>
+  </div>
 
-<p>
-  <strong>Owner:</strong>
-  <%= @tour.owner.Last_name %>
-</p>
+  <div class="col-sm-6">
+    There will be an image.
+    image_tag @trip.trip_img.url(:grande_img), class: "grande-img"
+  </div>
+</div>
 
-<p>
-  <strong>Start time:</strong>
-  <%= @tour.start_time %>
-</p>
 
-<p>
-  <strong>Category:</strong>
-  <%= @tour.category.name %>
-</p>
+<div class="row">
+  <div class="col-sm-6">
+    <h3>General Information</h3>
+    <p>
+      <strong>Description:</strong>
+      <%= @tour.description %>
+    </p>
+    <p>
+      <strong>Owner:</strong>
+      <%= @tour.owner.Last_name %>
+    </p>
 
-<%= render 'tours/members' %>
+    <p>
+      <strong>Start time:</strong>
+      <%= @tour.start_time.strftime('%H:%M:%S %d %B %Y') %>
+    </p>
 
-<%= render 'tours/ideas_board' %>
+    <p>
+      <strong>Category:</strong>
+      <%= @tour.category.name %>
+    </p>
+  </div>
+  <div class="col-sm-6">
+    <% if @tour.owner != current_user %>
+        <%= render 'tours/subs_buttons' %>
+    <% end %>
+  </div>
+</div>
 
-<% if @tour.owner == current_user %>
-    <%= render 'tours/owner_ideas_board' %>
-<%else%>
-    <%= render 'tours/subs_buttons' %>
+<% if @allowed_user %>
+    <div class="row">
+      <div class="col-sm-6">
+        <%= render 'tours/ideas_board' %>
+
+        <% if @tour.owner == current_user %>
+            <%= render 'tours/owner_ideas_board' %>
+        <% end %>
+      </div>
+
+      <div class="col-sm-6">
+        <%= render 'tours/chat' %>
+      </div>
+    </div>
 <% end %>
-
-<%= render 'tours/chat' %>
 
 <%= link_to 'Edit', edit_tour_path(@tour) %> |
 <%= link_to 'Back', tours_path %>
