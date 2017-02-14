@@ -6,11 +6,13 @@ class ToursController < ApplicationController
 
   # GET /tours
   def index
+    @tours = Tour.includes(:owner, :users, :languages).order("created_at DESC")
+
     if params[:category].blank?
-      @tours = Tour.includes(:owner).all.order("created_at DESC")
+      @tours = @tours.all
     else
       @category_id = Category.find_by(name: params[:category]).id
-      @tours = Tour.where(:category_id => @category_id).order("created_at DESC")
+      @tours = @tours.where(:category_id => @category_id)
     end
   end
 

@@ -11,12 +11,18 @@
 
   <div class="col-sm-6">
     <%= image_tag @tour.tour_img.url(:grande_img), class: "grande-img" %>
+    <div class="row">
+      <div class="col-sm-12">
+        <% if @tour.owner != current_user %>
+            <%= render 'tours/subs_buttons' %>
+        <% end %>
+      </div>
+    </div>
   </div>
 </div>
 
-
 <div class="row">
-  <div class="col-sm-6">
+  <div class="col-sm-12">
     <h3>General Information</h3>
     <p>
       <strong>Description:</strong>
@@ -36,11 +42,6 @@
       <strong>Category:</strong>
       <%= @tour.category.name %>
     </p>
-  </div>
-  <div class="col-sm-6">
-    <% if @tour.owner != current_user %>
-        <%= render 'tours/subs_buttons' %>
-    <% end %>
   </div>
 </div>
 

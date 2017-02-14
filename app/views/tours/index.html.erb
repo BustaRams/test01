@@ -3,37 +3,38 @@
 <% if @tours.blank? %>
     <h1>There are no trips here yet, be the first one to create one!</h1>
 <% else %>
-
-    <h1>Tours</h1>
-
-    <table>
-      <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Owner</th>
-        <th>Start time</th>
-        <th>Category</th>
-        <th colspan="4"></th>
-      </tr>
-      </thead>
-
-      <tbody>
+    <div class="row">
       <% @tours.each do |tour| %>
-          <tr>
-            <td><%= tour.name %></td>
-            <td><%= tour.description %></td>
-            <td><%= tour.owner.Last_name %></td>
-            <td><%= tour.start_time %></td>
-            <td><%= tour.category.name %></td>
-            <td><%= link_to 'Show', tour %></td>
-            <td><%= link_to 'Edit', edit_tour_path(tour) %></td>
-            <td><%= link_to 'Destroy', tour, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-          </tr>
+          <div class="col-sm-4">
+            <%=  link_to(image_tag(tour.tour_img.url(:mini_img), class: "grande-img") , tour_path(tour))  %>
+
+            <div>
+              <h3><%= tour.name %></h3>
+              <%= tour.start_time.strftime('%B %Y') %>
+            </div>
+
+            <%= truncate(tour.description, length: 100) { link_to 'more', tour_path(tour) } %>
+
+            <div>
+              <h4>Spoken Languages</h4>
+              <ul>
+                <li><%= tour.owner.language.name%></li>
+                <% tour.users.each do |user| %>
+                    <li><%= user.language.name %></li>
+                <% end %>
+              </ul>
+            </div>
+
+            <%= link_to 'Show', tour %>
+
+            <% if current_user == tour.owner %>
+                <%= link_to 'Edit', edit_tour_path(tour) %>
+                <%= link_to 'Destroy', tour, method: :delete, data: { confirm: 'Are you sure?' } %>
+            <% end %>
+          </div>
       <% end %>
-      </tbody>
-    </table>
 <% end %>
+</div>
 <br>
 
 <%= link_to 'New Tour', new_tour_path %>

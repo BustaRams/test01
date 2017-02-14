@@ -5,6 +5,7 @@ class Tour < ApplicationRecord
   has_many :users, through: :tours_users
   has_many :ideas
   has_many :messages
+  has_many :languages, through: :users
 
   validates_presence_of :name, :description, :owner_id, :start_time
 
