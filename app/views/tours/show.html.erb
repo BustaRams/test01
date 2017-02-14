@@ -23,12 +23,13 @@
   <%= @tour.category.name %>
 </p>
 
-<% if current_user.tours_users.acive.where(tour: @tour).first.present? %>
-    <%= link_to 'Unsubscribe', tours_unsubscribe_path(id: @tour.id), method: :post%>
-<% elsif current_user.tours_users.where(tour: @tour, kicked: true).first.present? %>
+<%= render 'tours/ideas_board' %>
 
+<% if @tour.owner == current_user %>
+    <%= render 'tours/owner_ideas_board' %>
 <%else%>
-    <%= link_to 'Subscribe', tours_subscribe_path(id: @tour.id), method: :post%>
+    <%= render 'tours/subs_buttons' %>
 <% end %>
+
 <%= link_to 'Edit', edit_tour_path(@tour) %> |
 <%= link_to 'Back', tours_path %>

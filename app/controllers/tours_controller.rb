@@ -1,5 +1,5 @@
 class ToursController < ApplicationController
-  before_action :set_tour, only: [:show, :edit, :update, :destroy, :subscribe, :unsubscribe]
+  before_action :set_tour, only: [:show, :edit, :update, :destroy, :subscribe, :unsubscribe, :post_idea, :delete_idea]
 
   # GET /tours
   def index
@@ -13,6 +13,8 @@ class ToursController < ApplicationController
 
   # GET /tours/1
   def show
+    @ideas = @tour.ideas
+    @idea = Idea.new
   end
 
   # GET /tours/new
@@ -76,7 +78,30 @@ class ToursController < ApplicationController
       redirect_to tour_path(@tour), :flash => { notice: 'You are unsubscribed.' }
     else
       redirect_to tour_path(@tour), :flash => { alert: 'You don`t have active subscription to this trip.' }
-      render :show
+    end
+  end
+
+  def post_idea
+    @tour.owner == current_user || not_found
+
+    text = params.dig(:idea,:text)
+    if  text.present? && @tour.ideas.create(text: text)
+      redirect_to tour_path(@tour), :flash => { notice: 'An idea is saved.' }
+    else
+      redirect_to tour_path(@tour), :flash => { alert: 'Input correct idea text.' }
+    end
+  end
+
+  def delete_idea
+    @tour.owner == current_user || not_found
+
+    idea = @tour.ideas.where(id: params[:idea_id]).first
+
+    if idea.present?
+      idea.delete
+      redirect_to tour_path(@tour), :flash => { notice: 'The idea is deleted.' }
+    else
+      redirect_to tour_path(@tour), :flash => { alert: 'The idea is not found.' }
     end
   end
 

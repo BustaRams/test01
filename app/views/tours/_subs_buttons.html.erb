@@ -1,0 +1,7 @@
+<% if current_user.tours_users.acive.where(tour: @tour).first.present? %>
+    <%= link_to 'Unsubscribe', tours_unsubscribe_path(id: @tour.id), method: :post%>
+<% elsif current_user.tours_users.where(tour: @tour, kicked: true).first.present? %>
+
+<%else%>
+    <%= link_to 'Subscribe', tours_subscribe_path(id: @tour.id), method: :post%>
+<% end %>
