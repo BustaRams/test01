@@ -21,7 +21,7 @@ gem 'bcrypt', git: 'https://github.com/codahale/bcrypt-ruby.git', :require => 'b
 gem 'activeadmin', '~> 1.0.0.pre4'
 gem 'inherited_resources', git: 'https://github.com/activeadmin/inherited_resources'
 gem 'thin'
-
+gem 'redis', '~> 3.2' # Needed for sockets.
 
 
 group :development, :test do

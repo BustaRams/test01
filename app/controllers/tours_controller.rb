@@ -15,6 +15,8 @@ class ToursController < ApplicationController
   def show
     @ideas = @tour.ideas
     @idea = Idea.new
+    @messages = @tour.messages.includes(:user)
+    @message = Message.new
   end
 
   # GET /tours/new

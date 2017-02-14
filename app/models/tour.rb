@@ -4,6 +4,7 @@ class Tour < ApplicationRecord
   has_many :tours_users
   has_many :users, through: :tours_users
   has_many :ideas
+  has_many :messages
 
   validates_presence_of :name, :description, :owner_id, :start_time
 

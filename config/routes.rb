@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
 
   ActiveAdmin.routes(self)
+
+  mount ActionCable.server => '/cable'
+
   devise_for :users
+
   resources :tours
 	root 'tours#index'
 
