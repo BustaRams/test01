@@ -86,6 +86,6 @@ Rails.application.configure do
 
   # Some action cable for heroku configs.
   config.action_cable.allowed_request_origins = ['https://bon-voyaj.herokuapp.com', 'http://bon-voyaj.herokuapp.com', /http:\/\/bon-voyaj.herokuapp.com.*/]
-  config.action_cable.url = 'wss://bon-voyaj.herokuapp.com/cable'
+  config.action_cable.url = 'ws://bon-voyaj.herokuapp.com/cable'
 
 end
