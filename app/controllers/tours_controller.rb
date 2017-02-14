@@ -2,7 +2,7 @@ class ToursController < ApplicationController
   before_action :set_tour, only: [:show, :edit, :update, :destroy,
                                   :subscribe, :unsubscribe, :post_idea, :delete_idea, :kick_user]
 
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: :index
 
   # GET /tours
   def index

@@ -53,7 +53,7 @@ Rails.application.configure do
   # config.cache_store = :mem_cache_store
 
   # Use a real queuing backend for Active Job (and separate queues per environment)
-  # config.active_job.queue_adapter     = :resque
+  config.active_job.queue_adapter     = :resque
   # config.active_job.queue_name_prefix = "Voyajers_#{Rails.env}"
   config.action_mailer.perform_caching = false
 
@@ -86,5 +86,6 @@ Rails.application.configure do
 
   # Some action cable for heroku configs.
   config.action_cable.allowed_request_origins = ['https://bon-voyaj.herokuapp.com/']
-  config.action_cable.url = 'wss://sitepoint-actioncable.herokuapp.com/cable'
+  config.action_cable.url = 'wss://bon-voyaj.herokuapp.com/cable'
+
 end
