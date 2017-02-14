@@ -3,38 +3,41 @@
 <% if @tours.blank? %>
     <h1>There are no trips here yet, be the first one to create one!</h1>
 <% else %>
-    <div class="row">
-      <% @tours.each do |tour| %>
-          <div class="col-sm-4">
-            <%=  link_to(image_tag(tour.tour_img.url(:mini_img), class: "grande-img") , tour_path(tour))  %>
+    <% @tours.in_groups_of(3, nil).each do |group|%>
+        <div class="row">
+          <% group.each do |tour| %>
+              <% next unless tour.present? %>
+              <div class="col-sm-4 custom-index-div">
+                <%=  link_to(image_tag(tour.tour_img.url(:mini_img), class: "grande-img img-container") , tour_path(tour))  %>
 
-            <div>
-              <h3><%= tour.name %></h3>
-              <%= tour.start_time.strftime('%B %Y') %>
-            </div>
+                <div>
+                  <h3><%= tour.name %></h3>
+                  <%= tour.start_time.strftime('%B %Y') %>
+                </div>
 
-            <%= truncate(tour.description, length: 100) { link_to 'more', tour_path(tour) } %>
+                <%= truncate(tour.description, length: 100) { link_to 'more', tour_path(tour) } %>
 
-            <div>
-              <h4>Spoken Languages</h4>
-              <ul>
-                <li><%= tour.owner.language.name%></li>
-                <% tour.users.each do |user| %>
-                    <li><%= user.language.name %></li>
+                <div>
+                  <h4>Spoken Languages</h4>
+                  <ul class="list-unstyled">
+                    <li><%= tour.owner.language.name%></li>
+                    <% tour.users.each do |user| %>
+                        <li><%= user.language.name %></li>
+                    <% end %>
+                  </ul>
+                </div>
+
+                <%= link_to 'Show', tour %>
+
+                <% if current_user == tour.owner %>
+                    <%= link_to 'Edit', edit_tour_path(tour) %>
+                    <%= link_to 'Destroy', tour, method: :delete, data: { confirm: 'Are you sure?' } %>
                 <% end %>
-              </ul>
-            </div>
-
-            <%= link_to 'Show', tour %>
-
-            <% if current_user == tour.owner %>
-                <%= link_to 'Edit', edit_tour_path(tour) %>
-                <%= link_to 'Destroy', tour, method: :delete, data: { confirm: 'Are you sure?' } %>
-            <% end %>
-          </div>
-      <% end %>
+              </div>
+          <% end %>
+        </div>
+    <% end %>
 <% end %>
-</div>
 <br>
 
 <%= link_to 'New Tour', new_tour_path %>
