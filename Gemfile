@@ -22,7 +22,7 @@ gem 'activeadmin', '~> 1.0.0.pre4'
 gem 'inherited_resources', git: 'https://github.com/activeadmin/inherited_resources'
 gem 'thin'
 gem 'redis', '~> 3.2' # Needed for sockets.
-gem 'resque'
+gem 'resque', "~> 1.22.0"
 
 
 group :development, :test do
