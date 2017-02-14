@@ -23,6 +23,8 @@
   <%= @tour.category.name %>
 </p>
 
+<%= render 'tours/members' %>
+
 <%= render 'tours/ideas_board' %>
 
 <% if @tour.owner == current_user %>

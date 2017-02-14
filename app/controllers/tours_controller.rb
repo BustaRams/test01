@@ -1,5 +1,6 @@
 class ToursController < ApplicationController
-  before_action :set_tour, only: [:show, :edit, :update, :destroy, :subscribe, :unsubscribe, :post_idea, :delete_idea]
+  before_action :set_tour, only: [:show, :edit, :update, :destroy,
+                                  :subscribe, :unsubscribe, :post_idea, :delete_idea, :kick_user]
 
   # GET /tours
   def index
@@ -17,6 +18,7 @@ class ToursController < ApplicationController
     @idea = Idea.new
     @messages = @tour.messages.includes(:user)
     @message = Message.new
+    @members = @tour.tours_users.includes(:user)
   end
 
   # GET /tours/new
@@ -104,6 +106,17 @@ class ToursController < ApplicationController
       redirect_to tour_path(@tour), :flash => { notice: 'The idea is deleted.' }
     else
       redirect_to tour_path(@tour), :flash => { alert: 'The idea is not found.' }
+    end
+  end
+
+  def kick_user
+    @tour.owner == current_user || not_found
+    subscription = ToursUser.where(tour: @tour, user_id: params[:user_id]).first
+    if subscription.present?
+      subscription.update_attribute(:kicked, true)
+      redirect_to tour_path(@tour), :flash => { notice: 'User is kicked out of this trip.' }
+    else
+      redirect_to tour_path(@tour), :flash => { alert: 'The user subscription is not found.' }
     end
   end
 

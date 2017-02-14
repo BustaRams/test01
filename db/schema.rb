@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170214111716) do
+ActiveRecord::Schema.define(version: 20170214132942) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -82,10 +82,12 @@ ActiveRecord::Schema.define(version: 20170214111716) do
   end
 
   create_table "tours_users", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "tour_id"
-    t.boolean "kicked",              default: false
-    t.boolean "active_subscription", default: true
+    t.integer  "user_id"
+    t.integer  "tour_id"
+    t.boolean  "kicked",              default: false
+    t.boolean  "active_subscription", default: true
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.index ["active_subscription"], name: "index_tours_users_on_active_subscription"
     t.index ["tour_id"], name: "index_tours_users_on_tour_id"
     t.index ["user_id"], name: "index_tours_users_on_user_id"
