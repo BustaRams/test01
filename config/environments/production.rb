@@ -85,7 +85,7 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # Some action cable for heroku configs.
-  config.action_cable.allowed_request_origins = ['https://bon-voyaj.herokuapp.com/']
+  config.action_cable.allowed_request_origins = ['https://bon-voyaj.herokuapp.com', 'http://bon-voyaj.herokuapp.com', /http:\/\/bon-voyaj.herokuapp.com.*/]
   config.action_cable.url = 'wss://bon-voyaj.herokuapp.com/cable'
 
 end
