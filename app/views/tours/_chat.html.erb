@@ -1,4 +1,5 @@
 <h3>Trip chat</h3>
+<div class="chat-area">
 <% if @messages.all.present? %>
     <div id="chat">
       <div class="card">
@@ -21,7 +22,7 @@
       </div>
     </div>
 <% end %>
-
+</div>
 <div id="messages" data-chat-room-id="<%= @tour.id %>">
   <%= form_for @message, url: '#', method: :get do |f| %>
       <div class="form-group">
@@ -30,6 +31,6 @@
         <small class="text-muted">From 2 to 1000 characters</small>
       </div>
 
-      <%= f.submit "Post", { class: 'btn btn-primary' } %>
+      <%= f.submit "Post", { class: 'btn btn-info btn-sm' } %>
   <% end %>
 </div>

@@ -1,5 +1,6 @@
 <h3>Ideas board</h3>
 
+<div class="ideas-board">
 <% if @ideas.all.present? %>
 <table class="table table-striped">
   <thead>
@@ -15,10 +16,10 @@
       <tr>
         <th scope="row"><%= index += 1 %></th>
         <td><%= idea.text %></td>
-        <td><%= link_to('Delete', tours_delete_idea_path(@tour.id, { idea_id: idea.id }), 'data-confirm' => "Are you sure?", method: :delete) if @tour.owner == current_user %></td>
+        <td><%= link_to('Delete', tours_delete_idea_path(@tour.id, { idea_id: idea.id }), 'data-confirm' => "Are you sure?", method: :delete, class: 'btn btn-xs btn-info', role: 'button' ) if @tour.owner == current_user %></td>
       </tr>
   <% end %>
   </tbody>
 </table>
 <% end %>
-
+</div>

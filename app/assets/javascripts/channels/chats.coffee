@@ -1,8 +1,9 @@
 jQuery(document).on 'turbolinks:load', ->
   messages = $('#messages')
   messages_table = $('#message-table-body')
+  chat_area = $('.chat-area')
   if $('#messages').length > 0
-    messages_to_bottom = -> messages.scrollTop(messages_table.prop("scrollHeight"))
+    messages_to_bottom = -> chat_area.scrollTop(chat_area.prop("scrollHeight"))
 
     messages_to_bottom()
 

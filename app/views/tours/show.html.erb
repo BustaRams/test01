@@ -9,17 +9,17 @@
     <%= render 'tours/members' %>
   </div>
 
-  <div class="col-sm-6 ">
-    <%= image_tag @tour.tour_img.url(:grande_img), class: "grande-img" %>
+  <div class="col-sm-6 center-text">
+    <%= image_tag @tour.tour_img.url(:grande_img), class: "grande-img image-borders" %>
     <div class="row">
-      <div class="col-sm-12">
+      <div class="col-sm-12 center-text paddings">
         <% if @tour.owner != current_user %>
             <%= render 'tours/subs_buttons' %>
         <% else %>
             <% if @tour.locked? %>
-                <%= link_to 'Unlock the tour', tours_unlock_path(@tour), method: :post%>
+                <%= link_to 'Unlock the tour', tours_unlock_path(@tour), method: :post, class: 'btn btn-sm btn-info', role: 'button' %>
             <% else %>
-                <%= link_to 'Lock the tour', tours_lock_path(@tour), method: :post%>
+                <%= link_to 'Lock the tour', tours_lock_path(@tour), method: :post, class: 'btn btn-sm btn-info', role: 'button' %>
             <% end %>
         <% end %>
       </div>
@@ -30,10 +30,12 @@
 <div class="row custom-borders">
   <div class="col-sm-12">
     <h3>General Information</h3>
-    <p>
-      <strong>Description:</strong>
-      <%= @tour.description %>
-    </p>
+    <div class="general-info">
+      <p>
+        <strong>Description:</strong>
+        <%= @tour.description %>
+      </p>
+    </div>
     <p>
       <strong>Owner:</strong>
       <%= @tour.owner.Last_name %>

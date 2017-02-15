@@ -10,14 +10,15 @@
               <div class="col-sm-4 custom-index-div">
                 <%=  link_to(image_tag(tour.tour_img.url(:mini_img), class: "grande-img img-container") , tour_path(tour))  %>
 
-                <div>
+                <div class="tour-name">
                   <h3><%= tour.name %></h3>
                   <%= tour.start_time.strftime('%B %Y') %>
                 </div>
 
+                <div class="tour-description">
                 <%= truncate(tour.description, length: 100) { link_to 'more', tour_path(tour) } %>
-
-                <div>
+                </div>
+                <div class="spoken-languages">
                   <h4>Spoken Languages</h4>
                   <ul class="list-unstyled">
                     <li><%= tour.owner.language.name%></li>
@@ -27,17 +28,14 @@
                   </ul>
                 </div>
 
-                <%= link_to 'Show', tour %>
+                <%= link_to 'Show', tour, { class: 'btn btn-sm btn-info', role: 'button' } %>
 
                 <% if current_user == tour.owner %>
-                    <%= link_to 'Edit', edit_tour_path(tour) %>
-                    <%= link_to 'Destroy', tour, method: :delete, data: { confirm: 'Are you sure?' } %>
+                    <%= link_to 'Edit', edit_tour_path(tour), class: 'btn btn-sm btn-info'%>
+                    <%= link_to 'Destroy', tour, method: :delete, data: { confirm: 'Are you sure?'} , class: 'btn btn-sm btn-info', role: 'button'  %>
                 <% end %>
               </div>
           <% end %>
         </div>
     <% end %>
 <% end %>
-<br>
-
-<%= link_to 'New Tour', new_tour_path %>
