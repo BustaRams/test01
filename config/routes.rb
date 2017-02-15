@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   resources :tours
 	root 'tours#index'
 
+  get '/tours_by_owner', to: 'tours#tours_by_owner', as: 'tours_by_owner'
+
   post '/tours/subscribe', to: 'tours#subscribe', as: 'tours_subscribe'
   post '/tours/:id/kick', to: 'tours#kick_user', as: 'tour_kick'
   post '/tours/:id/unsubscribe', to: 'tours#unsubscribe', as: 'tours_unsubscribe'

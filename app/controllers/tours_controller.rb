@@ -16,6 +16,10 @@ class ToursController < ApplicationController
     end
   end
 
+  def tours_by_owner
+    @tours = Tour.includes(:owner, :users, :languages).where(owner: current_user).order("created_at DESC").all
+  end
+
   # GET /tours/1
   def show
     @ideas = @tour.ideas
