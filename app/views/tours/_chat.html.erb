@@ -1,27 +1,25 @@
 <h3>Trip chat</h3>
 <div class="chat-area">
-<% if @messages.all.present? %>
-    <div id="chat">
-      <div class="card">
-        <div class="card-block">
-          <table class="table">
-            <thead>
-            <tr>
-              <th>Author</th>
-              <th>Message</th>
-              <th colspan="1"></th>
-            </tr>
-            </thead>
-            <tbody id="message-table-body" style="max-height: 450px; overflow-y: auto;" >
-            <% @messages.each do |message| %>
-                <%= render partial: 'messages/message', locals: {message: message} %>
-            <% end %>
-            </tbody>
-          </table>
-        </div>
+  <div id="chat">
+    <div class="card">
+      <div class="card-block">
+        <table class="table">
+          <thead>
+          <tr>
+            <th>Author</th>
+            <th>Message</th>
+            <th colspan="1"></th>
+          </tr>
+          </thead>
+          <tbody id="message-table-body" style="max-height: 450px; overflow-y: auto;" >
+              <% @messages.each do |message| %>
+                  <%= render partial: 'messages/message', locals: {message: message} %>
+              <% end %>
+          </tbody>
+        </table>
       </div>
     </div>
-<% end %>
+  </div>
 </div>
 <div id="messages" data-chat-room-id="<%= @tour.id %>">
   <%= form_for @message, url: '#', method: :get do |f| %>
