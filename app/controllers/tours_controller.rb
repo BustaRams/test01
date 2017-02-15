@@ -77,7 +77,9 @@ class ToursController < ApplicationController
     elsif current_user.tours_users.active.where(tour: @tour, kicked: true).any?
       redirect_to tour_path(@tour), :flash => { alert: 'The trip owner has limited your access to this page.' }
     else
-      current_user.tours_users.where(tour: @tour).first_or_create
+      subscription = current_user.tours_users.where(tour: @tour).first_or_initialize
+      subscription.active_subscription = true
+      subscription.save!
       redirect_to tour_path(@tour), :flash => { notice: 'You are subscribed successfully.' }
     end
   end

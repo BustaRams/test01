@@ -4,7 +4,9 @@
     <div class="form-inputs">
       <%= f.input :name %>
       <%= f.input :description %>
-      <%= f.input :start_time %>
+      <%= f.input :start_time, as: :date, start_year: Date.today.year,
+                  max_years_allowed: 5,
+                  order: [:month, :year] %>
 
       <div form-group select mandatory category>
         <%= f.label 'Category' %>
