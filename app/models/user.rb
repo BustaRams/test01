@@ -9,4 +9,11 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   validates_presence_of :First_name, :Last_name, :language_id, :birthday
+  validate do |user|
+    user.must_accept_terms
+  end
+
+  def must_accept_terms
+    errors.add(:base, 'You must accept terms and conditions of this service.') unless terms_conditions == true
+  end
 end
