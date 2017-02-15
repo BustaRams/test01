@@ -16,14 +16,15 @@
                 </div>
 
                 <div class="tour-description">
-                <%= truncate(tour.description, length: 100) { link_to 'more', tour_path(tour) } %>
+                  <%= truncate(tour.description, length: 100) { link_to 'more', tour_path(tour) } %>
                 </div>
+
+                <h4>Spoken Languages</h4>
                 <div class="spoken-languages">
-                  <h4>Spoken Languages</h4>
                   <ul class="list-unstyled">
                     <li><%= tour.owner.language.name%></li>
-                    <% tour.users.each do |user| %>
-                        <li><%= user.language.name %></li>
+                    <% tour.collected_languages.each do |lang| %>
+                        <li><%= lang %></li>
                     <% end %>
                   </ul>
                 </div>
