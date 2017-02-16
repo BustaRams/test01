@@ -22,6 +22,7 @@ class Tour < ApplicationRecord
     result = self.users.includes(:language).map do |user|
       user.language.name
     end
+    result << self.owner.language.name
     result.compact.uniq
   end
 end
