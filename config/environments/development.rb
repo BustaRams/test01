@@ -54,6 +54,11 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
+  config.action_cable.allowed_request_origins = ['https://epikformepikthregq.fwd.wf', 'http://epikformepikthregq.fwd.wf']
+  #config.action_cable.url = 'wss://bon-voyaj.herokuapp.com/cable'
+  config.action_cable.url = 'https://epikformepikthregq.fwd.wf/cable'
+
+
   config.action_mailer.default_url_options = { host: 'https://epikformepikthregq.fwd.wf'}
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
