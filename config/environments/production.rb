@@ -85,9 +85,9 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # Some action cable for heroku configs.
-  config.action_cable.allowed_request_origins = ['https://bon-voyaj.herokuapp.com', 'http://bon-voyaj.herokuapp.com']
+  config.action_cable.allowed_request_origins = ['https://bon-voyaj.herokuapp.com', 'http://bon-voyaj.herokuapp.com', 'bon-voyaj.herokuapp.com']
   #config.action_cable.url = 'wss://bon-voyaj.herokuapp.com/cable'
-  config.action_cable.url = 'https://bon-voyaj.herokuapp.com/cable'
+  config.action_cable.url = 'wss://bon-voyaj.herokuapp.com/cable'
 
   # paperclip
   config.paperclip_defaults = {
@@ -101,7 +101,7 @@ Rails.application.configure do
   }
 
   # SMTP
-  config.action_mailer.default_url_options = { host: 'https://epikformepikthregq.fwd.wf'}
+  config.action_mailer.default_url_options = { host: 'https://bon-voyaj.herokuapp.com'}
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
       address: 'smtp.gmail.com',
