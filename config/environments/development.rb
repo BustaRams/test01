@@ -59,7 +59,7 @@ Rails.application.configure do
   config.action_cable.url = 'https://epikformepikthregq.fwd.wf/cable'
 
 
-  config.action_mailer.default_url_options = { host: 'https://epikformepikthregq.fwd.wf'}
+  config.action_mailer.default_url_options = { host: 'https://bon-voyaj.herokuapp.com'}
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
       address: 'smtp.gmail.com',
