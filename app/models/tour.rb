@@ -6,6 +6,7 @@ class Tour < ApplicationRecord
   has_many :ideas
   has_many :messages
   has_many :languages, through: :users
+  belongs_to :main_language, class_name: 'Language', foreign_key: 'language_id'
 
   validates_presence_of :name, :description, :owner_id, :start_time
 

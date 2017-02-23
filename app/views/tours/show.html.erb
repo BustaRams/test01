@@ -50,6 +50,11 @@
       <strong>Category:</strong>
       <%= @tour.category.name %>
     </p>
+
+    <p>
+      <strong>Main Language:</strong>
+      <%= @tour.main_language.try(:name) %>
+    </p>
   </div>
 </div>
 

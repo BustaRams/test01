@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170215192849) do
+ActiveRecord::Schema.define(version: 20170223131342) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -84,6 +84,7 @@ ActiveRecord::Schema.define(version: 20170215192849) do
     t.integer  "tour_img_file_size"
     t.datetime "tour_img_updated_at"
     t.boolean  "locked",                default: false
+    t.integer  "language_id"
   end
 
   create_table "tours_users", force: :cascade do |t|

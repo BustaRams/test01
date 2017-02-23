@@ -17,6 +17,11 @@
                   <%= truncate(tour.description, length: 100) { link_to 'more', tour_path(tour) } %>
                 </div>
 
+                <h4>Main Language</h4>
+                <div class="spoken-languages">
+                   <%= tour.main_language.try(:name) %>
+                </div>
+
                 <h4>Spoken Languages</h4>
                 <div class="spoken-languages">
                   <ul class="list-unstyled">
