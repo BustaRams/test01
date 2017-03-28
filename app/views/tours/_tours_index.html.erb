@@ -12,8 +12,7 @@
     </div>
   <% else %>
           <div class="row">
-          <% @tours.in_groups_of(3, nil).each do |group|%>
-            <% group.each do |tour| %>
+            <% @tours.each do |tour| %>
                 <% next unless tour.present? %>
                 <div class="col-xs-6 col-sm-6 col-md-4">
                   <div class="trip-block">
@@ -47,7 +46,6 @@
               </div>
             <% end %>
           </div>
-      <% end %>
   <% end %>
   </div>
 </div>

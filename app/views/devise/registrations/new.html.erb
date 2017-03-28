@@ -5,6 +5,7 @@
           <p class="tag">Easy and quick account creation fot everyone, Already have an account?<%= link_to "Log In Here" ,user_session_path , class:'link' %> </p>
       </div>
           <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+          
               <%= f.error_notification %>
             <div class="frm-wrap">
                 <div class="gray-box">
