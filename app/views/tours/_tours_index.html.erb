@@ -1,44 +1,127 @@
-<% if @tours.blank? %>
-    <h1>There are no trips here yet, be the first one to create one!</h1>
-<% else %>
-    <% @tours.in_groups_of(3, nil).each do |group|%>
-        <div class="row">
-          <% group.each do |tour| %>
-              <% next unless tour.present? %>
-              <div class="col-sm-4 custom-index-div">
-                <%=  link_to(image_tag(tour.tour_img.url(:mini_img), class: "grande-img img-container") , tour_path(tour))  %>
+<div class="white-bg pad-block trip-wrap">
+  <div class="container">
+    <div class="main-title">
+        <h1>Voyajers <span>Trip</span></h1>
+        <p class="tag">Find trip and share idea</p>
+    </div>
 
-                <div class="tour-name">
-                  <h3><%= tour.name %></h3>
-                  <%= tour.start_time.strftime('%B %Y') %>
+  <% if @tours.blank? %>
+    <div class="blank-msg">
+      <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+      <h1>There are no trips here yet, be the first one to create one!</h1>
+    </div>
+  <% else %>
+          <div class="row">
+          <% @tours.in_groups_of(3, nil).each do |group|%>
+            <% group.each do |tour| %>
+                <% next unless tour.present? %>
+                <div class="col-xs-6 col-sm-6 col-md-4">
+                  <div class="trip-block">
+                    <div class="trip-img">
+                        <%=  link_to(image_tag(tour.tour_img.url(:mini_img), class: "fix-img",alt:"" ,style:"width: 100%;") , tour_path(tour))  %>
+                    </div>
+                    <div class="trip-info">
+                      <h3 class="trip-name"><%= tour.name %></h3>
+                      <div class="tag-wrap"><%= tour.start_time.strftime('%B %Y') %></div>
+
+                      <div class="trip-desc">
+                      <p class="desc"><%= truncate(tour.description, length: 100) { link_to 'more', tour_path(tour) } %></p>
+                          <p><strong>Spoken Languages:</strong>
+                          <% tour.collected_languages.each do |lang| %>
+                              <%= lang %>
+                          <% end %>
+                          </p>
+                      </div>
+
+                      <div class="trip-locat">
+
+                          <p><%= image_tag("pin.png" ,  alt:"") %><%=tour.category.name %></p>
+                          <%= link_to 'See Détails', tour, { class: 'line-btn', role: 'button' } %>
+                          <% if current_user == tour.owner %>
+                          <%= link_to 'Edit', edit_tour_path(tour), class: 'line-btn'%>
+                          <%= link_to 'Destroy', tour, method: :delete, data: { confirm: 'Are you sure?'} , class: 'line-btn red', role: 'button'  %>
+                          <% end %>
+                      </div>
+                    </div>
                 </div>
-
-                <div class="tour-description">
-                  <%= truncate(tour.description, length: 100) { link_to 'more', tour_path(tour) } %>
-                </div>
-
-                <h4>Main Language</h4>
-                <div class="spoken-languages">
-                   <%= tour.main_language.try(:name) %>
-                </div>
-
-                <h4>Spoken Languages</h4>
-                <div class="spoken-languages">
-                  <ul class="list-unstyled">
-                    <% tour.collected_languages.each do |lang| %>
-                        <li><%= lang %></li>
-                    <% end %>
-                  </ul>
-                </div>
-
-                <%= link_to 'Show', tour, { class: 'btn btn-sm btn-info', role: 'button' } %>
-
-                <% if current_user == tour.owner %>
-                    <%= link_to 'Edit', edit_tour_path(tour), class: 'btn btn-sm btn-info'%>
-                    <%= link_to 'Destroy', tour, method: :delete, data: { confirm: 'Are you sure?'} , class: 'btn btn-sm btn-info', role: 'button'  %>
-                <% end %>
               </div>
-          <% end %>
+            <% end %>
+          </div>
+      <% end %>
+  <% end %>
+  </div>
+</div>
+
+
+<% if !params[:category].present? %>
+<div class="pad-block gray-bg">
+    <div class="container">
+        <div class="main-title"><h1>START SHARE <span>IDEA AND TRIP</span></h1><p class="tag">JUST SGN UP</p></div>
+        <div class="sing-frm">
+            <form>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="FULL NAME">
+                </div>
+                <div class="form-group">
+                    <input type="email" class="form-control" placeholder="EMAIL ADDRESS">
+                </div>
+                <button type="submit" class="line-btn">Sign up now</button>
+            </form>
         </div>
-    <% end %>
+    </div>
+</div>
 <% end %>
+
+
+
+<script>
+$(window).scroll(function() {
+	if ($(this).scrollTop() > 1){
+		$('header').addClass("sticky");
+		$('body').addClass("sticky-b");
+	}
+	else{
+		$('header').removeClass("sticky");
+		$('body').removeClass("sticky-b");
+	}
+});
+
+$( window ).load(function(){
+    $(".fix-img").each(function(){
+
+        var img = $(this);
+        var image_heightA = img.height();
+        var image_widthA = img.width();
+        var parent_image_widthA = img.parent().width();
+        var parent_image_heightA = img.parent().height();
+        //if(width <= height)
+
+        if(image_heightA > parent_image_heightA && image_widthA > parent_image_widthA){
+
+            img.css('width',parent_image_widthA + 'px');
+            var tem_image_heightA = img.height();
+
+            if(tem_image_heightA > parent_image_heightA){
+                img.css('width','100%');
+            }
+            else{
+                img.css('width','auto');
+                img.css('height','100%');
+            }
+        }
+        else{
+            img.css('width',parent_image_widthA + 'px');
+            var tem_image_heightA = img.height();
+
+            if(tem_image_heightA > parent_image_heightA){
+                img.css('width','100%');
+            }
+            else{
+                img.css('width','auto');
+                img.css('height','100%');
+            }
+        }
+    });
+});
+
+</script>

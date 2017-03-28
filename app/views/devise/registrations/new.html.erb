@@ -1,56 +1,75 @@
-<h2>Sign up</h2>
+<div class="white-bg pad-block log-wrap">
+    <div class="container">
+      <div class="main-title">
+          <h1>Sign <span>Up</span></h1>
+          <p class="tag">Easy and quick account creation fot everyone, Already have an account?<%= link_to "Log In Here" ,user_session_path , class:'link' %> </p>
+      </div>
+          <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+              <%= f.error_notification %>
+            <div class="frm-wrap">
+                <div class="gray-box">
+                    <div class="frm-line">
+                        <div class="frm-half">
+                            <div class="form-group">
+                              <%= f.label :First_name %>
+                              <%= f.text_field :First_name, autofocus: true, class: "form-control", placeholder: "John" %>
+                            </div>
+                        </div>
+                        <div class="frm-half">
+                            <div class="form-group">
+                              <%= f.label :Last_name %>
+                              <%= f.text_field :Last_name, autofocus: true, class: "form-control", placeholder: "Smith" %>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="frm-line">
+                        <div class="frm-full">
+                            <div class="form-group">
+                                 <%= f.label :email %>
+                                  <%= f.email_field :email, autofocus: true, class: "form-control", placeholder: "user@example.com" %>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="frm-line">
+                        <div class="frm-half">
+                            <div class="form-group">
+                                <%= f.input :birthday, as: :date, start_year: Date.today.year - 90,
+                                            end_year: Date.today.year - 12,
+                                            order: [:day, :month, :year] %>
 
-<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-    <%= f.error_notification %>
-
-    <div class="form-group">
-      <%= f.label :email %>
-      <%= f.email_field :email, autofocus: true, class: "form-control", placeholder: "user@example.com" %>
+                            </div>
+                        </div>
+                        <div class="frm-half">
+                            <div class="form-group">
+                              <%= f.label :language %>
+                              <%= f.select :language_id, Language.all.map { |r| [r.name, r.id] }, {include_blank: false}, { class: 'form-control'} %>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="frm-line">
+                        <div class="frm-full">
+                            <div class="form-group">
+                              <%= f.label :password %>
+                              <%= f.password_field :password, autocomplete: "off", class: "form-control", placeholder: "Minimum 6 characters" %>                            </div>
+                        </div>
+                    </div>
+                    <div class="frm-line">
+                        <div class="frm-full">
+                            <div class="form-group">
+                                <label>* Re-enter Password</label>
+                                <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control", placeholder: "Confirm Password" %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="checkbox text-center">
+                  <%= f.label :terms_conditions do %>
+                      <%= f.check_box :terms_conditions %>
+                      <span></span>I agree to the <%= link_to 'Terms of Service', '/terms_and_conditions.pdf' %>.
+                  <% end %>
+                </div>
+                <div class="btn-wrap mar two"><%= f.submit "Get Started Now" , { class: 'fill-btn' } %></div>
+            </div>
+            <% end %>
     </div>
-
-    <div class="form-group">
-      <%= f.label :First_name %>
-      <%= f.text_field :First_name, autofocus: true, class: "form-control", placeholder: "John" %>
-    </div>
-
-    <div class="form-group">
-      <%= f.label :Last_name %>
-      <%= f.text_field :Last_name, autofocus: true, class: "form-control", placeholder: "Smith" %>
-    </div>
-
-    <div class="form-group">
-      <%= f.input :birthday, as: :date, start_year: Date.today.year - 90,
-                  end_year: Date.today.year - 12,
-                  order: [:day, :month, :year] %>
-    </div>
-
-    <div class="form-group">
-      <%= f.label :language %>
-      <%= f.select :language_id, Language.all.map { |r| [r.name, r.id] }, {include_blank: false}, { class: 'selectpicker'} %>
-    </div>
-
-
-    <div class="form-group">
-      <%= f.label :password %>
-      <%= f.password_field :password, autocomplete: "off", class: "form-control", placeholder: "Minimum 6 characters" %>
-    </div>
-
-    <div class="form-group">
-      <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control", placeholder: "Confirm Password" %>
-    </div>
-
-
-    <div class="form-group">
-      <%= f.label :terms_and_conditions do %>
-          <%= f.check_box :terms_conditions %>
-          I agree to the <%= link_to 'Terms of Service', '/terms_and_conditions.pdf' %>.
-      <% end %>
-    </div>
-
-
-    <%= f.submit "Sign up" , { class: 'btn btn-primary' } %>
-<% end %>
-
-<center>
-  or <%= render "devise/shared/links" %>
-</center>
+</div>

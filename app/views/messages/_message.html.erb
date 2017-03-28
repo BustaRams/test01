@@ -1,5 +1,5 @@
-<tr>
-  <td><%= message.user.Last_name %></td>
-  <td><%= message.body %></td>
-  <td><%= message.created_at.strftime('%H:%M:%S %d %B %Y') %></td>
-</tr>
+<div class="msg-block">
+  
+    <div class="user-det"><h4 style="color:#4b9630;"><%= message.user.Last_name%></h4><span class="time"><%= message.created_at.strftime('%H:%M:%S %d %B %Y') %></span></div>
+    <div class="msg"><%= message.body %> </div>
+</div>

@@ -1,27 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Voyajers</title>
+  <title>Voyajers | Home</title>
   <%= csrf_meta_tags %>
-
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 </head>
 
 <body>
 
-<%= render 'shared/menu' %>
-
-<div class="container">
+<%= render 'layouts/header' %>
   <% if notice %>
-      <div class="alert alert-info"><%= notice %></div>
+  <div class="alert alert-info alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <%= notice %>
+  </div>
   <% end %>
   <% if alert %>
-      <div class="alert alert-danger"><%= alert %></div>
+  <div class="alert alert-danger alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <%= alert %>
+  </div>
   <% end %>
 
   <%= yield %>
-</div>
+  <%= render 'layouts/footer' %>
+
 
 </body>
 </html>

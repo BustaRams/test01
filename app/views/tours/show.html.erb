@@ -1,77 +1,113 @@
-<div class="row">
-  <div class="col-sm-12">
-    <h1> <%= @tour.name %> </h1>
+<div class="white-bg pad-block trip-detail">
+  <div class="container">
+      <div class="row">
+          <div class="col-sm-6 col-md-6">
+              <div class="trip-image">
+                <%= image_tag @tour.tour_img.url(:grande_img), class: "fix-img",alt:"" , style:"width: 100%;" %>
+              </div>
+          </div>
+          <div class="col-sm-6 col-md-6">
+              <div class="trip-data">
+                  <div class="trip-info">
+                      <h3 class="trip-name"><%= @tour.name %></h3>
+                      <div class="tag-wrap">March 2017</div>
+                      <div class="trip-desc">
+                          <p class="desc"><%= @tour.description %></p>
+                          <ul>
+                              <li><p><strong>Owner:</strong><%= @tour.owner.First_name %> <%= @tour.owner.Last_name %></p></li>
+                              <li><p><strong>Start Time:</strong> March, 2017</p></li>
+                              <li><p><strong>Languages:</strong> <%= @tour.main_language.try(:name) %></p></li>
+                              <li><p><strong>Spoken Languages:</strong> English</p></li>
+                          </ul>
+                      </div>
+                      <div class="trip-locat">
+                        <p><%= image_tag("pin.png" ,  alt:"") %><%=@tour.category.name %></p>
+                        <% if @tour.owner != current_user %>
+                            <%= render 'tours/subs_buttons' %>
+                        <% else %>
+                            <% if @tour.locked? %>
+                                <%= link_to 'Unlock the tour', tours_unlock_path(@tour), method: :post, class: 'line-btn', role: 'button' %>
+                            <% else %>
+                                <%= link_to 'Lock the tour', tours_lock_path(@tour), method: :post, class: 'line-btn', role: 'button' %>
+                            <% end %>
+                        <% end %>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <hr class="sep" />
+      <div class="row">
+          <div class="col-md-7">
+              <div class="tbl-head">
+                  <h3 class="com-title">Trip <span>Member</span></h3>
+
+              </div>
+              <%= render 'tours/members' %>
+              <div class="tbl-head">
+                  <h3 class="com-title">Idea <span>Board</span></h3>
+              </div>
+              <%= render 'tours/ideas_board' %>
+              <% if @tour.owner == current_user %>
+                  <%= render 'tours/owner_ideas_board' %>
+              <% end %>
+          </div>
+          <div class="col-md-5">
+              <%= render 'tours/chat' %>
+          </div>
+      </div>
   </div>
 </div>
 
-<div class="row custom-borders">
-  <div class="col-sm-6">
-    <%= render 'tours/members' %>
-  </div>
 
-  <div class="col-sm-6 center-text">
-    <%= image_tag @tour.tour_img.url(:grande_img), class: "grande-img image-borders" %>
-    <div class="row">
-      <div class="col-sm-12 center-text paddings">
-        <% if @tour.owner != current_user %>
-            <%= render 'tours/subs_buttons' %>
-        <% else %>
-            <% if @tour.locked? %>
-                <%= link_to 'Unlock the tour', tours_unlock_path(@tour), method: :post, class: 'btn btn-sm btn-info', role: 'button' %>
-            <% else %>
-                <%= link_to 'Lock the tour', tours_lock_path(@tour), method: :post, class: 'btn btn-sm btn-info', role: 'button' %>
-            <% end %>
-        <% end %>
-      </div>
-    </div>
-  </div>
-</div>
+<script>
+$(window).scroll(function() {
+	if ($(this).scrollTop() > 1){
+		$('header').addClass("sticky");
+		$('body').addClass("sticky-b");
+	}
+	else{
+		$('header').removeClass("sticky");
+		$('body').removeClass("sticky-b");
+	}
+});
 
-<div class="row custom-borders">
-  <div class="col-sm-12">
-    <h3>General Information</h3>
-    <div class="general-info">
-      <p>
-        <strong>Description:</strong>
-        <%= @tour.description %>
-      </p>
-    </div>
-    <p>
-      <strong>Owner:</strong>
-      <%= @tour.owner.Last_name %>
-    </p>
+$( window ).load(function(){
+    $(".fix-img").each(function(){
 
-    <p>
-      <strong>Start time:</strong>
-      <%= @tour.start_time.strftime('%B %Y') %>
-    </p>
+        var img = $(this);
+        var image_heightA = img.height();
+        var image_widthA = img.width();
+        var parent_image_widthA = img.parent().width();
+        var parent_image_heightA = img.parent().height();
+        //if(width <= height)
 
-    <p>
-      <strong>Category:</strong>
-      <%= @tour.category.name %>
-    </p>
+        if(image_heightA > parent_image_heightA && image_widthA > parent_image_widthA){
 
-    <p>
-      <strong>Main Language:</strong>
-      <%= @tour.main_language.try(:name) %>
-    </p>
-  </div>
-</div>
+            img.css('width',parent_image_widthA + 'px');
+            var tem_image_heightA = img.height();
 
-<% if @allowed_user %>
-    <div class="row custom-borders">
-      <div class="col-sm-6">
-        <%= render 'tours/ideas_board' %>
+            if(tem_image_heightA > parent_image_heightA){
+                img.css('width','100%');
+            }
+            else{
+                img.css('width','auto');
+                img.css('height','100%');
+            }
+        }
+        else{
+            img.css('width',parent_image_widthA + 'px');
+            var tem_image_heightA = img.height();
 
-        <% if @tour.owner == current_user %>
-            <%= render 'tours/owner_ideas_board' %>
-        <% end %>
-      </div>
+            if(tem_image_heightA > parent_image_heightA){
+                img.css('width','100%');
+            }
+            else{
+                img.css('width','auto');
+                img.css('height','100%');
+            }
+        }
+    });
+});
 
-      <div class="col-sm-6">
-        <%= render 'tours/chat' %>
-      </div>
-    </div>
-<% end %>
-
-<%= link_to 'Back', tours_path %>
+</script>

@@ -1,30 +1,56 @@
+
 <%= simple_form_for(@tour) do |f| %>
     <%= f.error_notification %>
 
-    <div class="form-inputs">
-      <%= f.input :name %>
-      <%= f.input :description %>
-      <%= f.input :start_time, as: :date, start_year: Date.today.year,
-                  max_years_allowed: 5,
-                  order: [:month, :year] %>
+  <div class="frm-wrap">
+      <div class="gray-box">
+          <div class="frm-line">
+              <div class="frm-full">
+                  <div class="form-group">
+                    <%= f.input :name %>
+                  </div>
+              </div>
+          </div>
+          <div class="frm-line">
+            <div class="frm-full">
+              <div class="form-group">
+                <%= f.label 'description' %>
+                <%= f.text_area :description %>
+              </div>
+            </div>
+          </div>
+          <div class="frm-line">
+              <div class="frm-half">
+                  <div class="form-group">
+                    <%= f.input :start_time, as: :date, start_year: Date.today.year,
+                                max_years_allowed: 5,
+                                order: [:month, :year] %>
 
-      <div form-group select mandatory category>
-        <%= f.label 'Category' %>
-        <%= f.select :category_id, @categories, { label: "Choose a category:" }, { class: "form-control select" } %>
-      </div><br>
-
-      <div>
-        <%= f.label :language %>
-        <%= f.select :language_id, Language.all.map { |r| [r.name, r.id] }, {include_blank: false}, { class: 'form-control select'} %>
-      </div><br>
-
-      <div form-group select mandatory category>
-        <%= f.label 'Trip Image' %>
-        <%= f.file_field :tour_img %>
-      </div><br>
-    </div>
-
-    <div class="form-actions">
-      <%= f.button :submit, { class: 'btn btn-primary' } %>
-    </div>
-<% end %>
+                  </div>
+              </div>
+              <div class="frm-half">
+                  <div class="form-group">
+                    <%= f.label 'Category' %>
+                    <%= f.select :category_id, @categories, { label: "Choose a category:" }, { class: "form-control select" } %>
+                  </div>
+              </div>
+          </div>
+          <div class="frm-line">
+              <div class="frm-full">
+                  <div class="form-group">
+                    <%= f.label :language %>
+                    <%= f.select :language_id, Language.all.map { |r| [r.name, r.id] }, {include_blank: false}, { class: 'form-control'} %>
+              </div>
+            </div>
+          </div>
+          <div class="frm-line">
+              <div class="frm-full">
+                  <div class="form-group">
+                    <%= f.label 'Trip Image' %>
+                    <%= f.file_field :tour_img %>
+                  </div>
+              </div>
+          </div>
+      <div class="btn-wrap mar two"><%= f.button :submit, { class: 'fill-btn' } %></div>
+  </div>
+  <% end %>
