@@ -21,7 +21,7 @@
                     </div>
                     <div class="trip-info">
                       <h3 class="trip-name"><%= tour.name %></h3>
-                      <div class="tag-wrap"><%= tour.start_time.strftime('%B %Y') %></div>
+                      <div class="tag-wrap"><h4>This trip starts in <%= tour.start_time.strftime('%B %Y') %></h4></div>
 
                       <div class="trip-desc">
                       <p class="desc"><%= truncate(tour.description, length: 100) { link_to 'more', tour_path(tour) } %></p>

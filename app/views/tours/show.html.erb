@@ -14,7 +14,7 @@
                       <div class="trip-desc">
                           <p class="desc"><%= @tour.description %></p>
                           <ul>
-                              <li><p><strong>Owner:</strong><%= @tour.owner.First_name %> <%= @tour.owner.Last_name %></p></li>
+                              <li><p><strong>Owner:</strong><%= @tour.owner.First_name %> <%= @tour.owner.Last_name.each_char.first %></p></li>
                               <li><p><strong>Start Time:</strong> March, 2017</p></li>
                               <li><p><strong>Languages:</strong> <%= @tour.main_language.try(:name) %></p></li>
                               <li><p><strong>Spoken Languages:</strong> English</p></li>
@@ -44,17 +44,21 @@
 
               </div>
               <%= render 'tours/members' %>
-              <div class="tbl-head">
-                  <h3 class="com-title">Idea <span>Board</span></h3>
+              <% if @allowed_user %>
+                  <div class="tbl-head">
+                      <h3 class="com-title">Idea <span>Board</span></h3>
+                  </div>
+                  <%= render 'tours/ideas_board' %>
+                  <% if @tour.owner == current_user %>
+                      <%= render 'tours/owner_ideas_board' %>
+                  <% end %>
+                <% end %>
               </div>
-              <%= render 'tours/ideas_board' %>
-              <% if @tour.owner == current_user %>
-                  <%= render 'tours/owner_ideas_board' %>
+              <% if @allowed_user %>
+                <div class="col-md-5">
+                    <%= render 'tours/chat' %>
+                </div>
               <% end %>
-          </div>
-          <div class="col-md-5">
-              <%= render 'tours/chat' %>
-          </div>
       </div>
   </div>
 </div>
