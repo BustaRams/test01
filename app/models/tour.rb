@@ -18,6 +18,7 @@ class Tour < ApplicationRecord
 
   # Validate the attached image is image/jpg, image/png, etc
   validates_attachment_content_type :tour_img, :content_type => /\Aimage\/.*\Z/
+  validates_attachment_presence :tour_img
 
   def collected_languages
     result = self.users.includes(:language).map do |user|

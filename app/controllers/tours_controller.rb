@@ -17,7 +17,8 @@ class ToursController < ApplicationController
   end
 
   def tours_by_owner
-    @tours = Tour.includes(:owner, :users, :languages).where(owner: current_user).order("created_at DESC").all
+    @tours = Tour.includes(:owner,  :users, :languages).where(owner: current_user ).order("created_at DESC").all
+    @tourstrip = Tour.includes(:tours_users).where(:tours_users => { :kicked => false,user_id: current_user, :active_subscription => true}).all
   end
 
   # GET /tours/1

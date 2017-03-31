@@ -5,47 +5,86 @@
         <p class="tag">Find trip and share idea</p>
     </div>
 
-  <% if @tours.blank? %>
-    <div class="blank-msg">
-      <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-      <h1>There are no trips here yet, be the first one to create one!</h1>
-    </div>
-  <% else %>
-          <div class="row">
-            <% @tours.each do |tour| %>
-                <% next unless tour.present? %>
-                <div class="col-xs-6 col-sm-6 col-md-4">
-                  <div class="trip-block">
-                    <div class="trip-img">
-                        <%=  link_to(image_tag(tour.tour_img.url(:mini_img), class: "fix-img",alt:"" ,style:"width: 100%;") , tour_path(tour))  %>
-                    </div>
-                    <div class="trip-info">
-                      <h3 class="trip-name"><%= tour.name %></h3>
-                      <div class="tag-wrap"><h4>This trip starts in <%= tour.start_time.strftime('%B %Y') %></h4></div>
+  <% if @tours.present? || @tourstrip.present? %>
 
-                      <div class="trip-desc">
-                      <p class="desc"><%= truncate(tour.description, length: 100) { link_to 'more', tour_path(tour) } %></p>
-                          <p><strong>Spoken Languages:</strong>
-                          <% tour.collected_languages.each do |lang| %>
-                              <%= lang %>
-                          <% end %>
-                          </p>
-                      </div>
 
-                      <div class="trip-locat">
+  <div class="row">
+    <% @tours.each do |tour| %>
+        <% next unless tour.present? %>
+        <div class="col-xs-6 col-sm-6 col-md-4">
+          <div class="trip-block">
+            <div class="trip-img">
+                <%=  link_to(image_tag(tour.tour_img.url(:mini_img), class: "fix-img",alt:"" ,style:"width: 100%;") , tour_path(tour))  %>
+            </div>
+            <div class="trip-info">
+              <h3 class="trip-name"><%= tour.name %></h3>
+              <div class="tag-wrap"><h4>This trip starts in <%= tour.start_time.strftime('%B %Y') %></h4></div>
 
-                          <p><%= image_tag("pin.png" ,  alt:"") %><%=tour.category.name %></p>
-                          <%= link_to 'See Détails', tour, { class: 'line-btn', role: 'button' } %>
-                          <% if current_user == tour.owner %>
-                          <%= link_to 'Edit', edit_tour_path(tour), class: 'line-btn'%>
-                          <%= link_to 'Destroy', tour, method: :delete, data: { confirm: 'Are you sure?'} , class: 'line-btn red', role: 'button'  %>
-                          <% end %>
-                      </div>
-                    </div>
-                </div>
+              <div class="trip-desc">
+              <p class="desc"><%= truncate(tour.description, length: 100) { link_to 'more', tour_path(tour) } %></p>
+                  <p><strong>Spoken Languages:</strong>
+                  <% tour.collected_languages.each do |lang| %>
+                      <%= lang %>
+                  <% end %>
+                  </p>
               </div>
-            <% end %>
-          </div>
+
+              <div class="trip-locat">
+
+                  <p><%= image_tag("pin.png" ,  alt:"") %><%=tour.category.name %></p>
+                  <%= link_to 'See Détails', tour, { class: 'line-btn', role: 'button' } %>
+                  <% if current_user == tour.owner %>
+                  <%= link_to 'Edit', edit_tour_path(tour), class: 'line-btn'%>
+                  <%= link_to 'Destroy', tour, method: :delete, data: { confirm: 'Are you sure?'} , class: 'line-btn red', role: 'button'  %>
+                  <% end %>
+              </div>
+            </div>
+        </div>
+      </div>
+    <% end %>
+
+
+    <% if @tourstrip.present? %>
+    <% @tourstrip.each do |tour| %>
+        <% next unless tour.present? %>
+        <div class="col-xs-6 col-sm-6 col-md-4">
+          <div class="trip-block">
+            <div class="trip-img">
+                <%=  link_to(image_tag(tour.tour_img.url(:mini_img), class: "fix-img",alt:"" ,style:"width: 100%;") , tour_path(tour))  %>
+            </div>
+            <div class="trip-info">
+              <h3 class="trip-name"><%= tour.name %></h3>
+              <div class="tag-wrap"><h4>This trip starts in <%= tour.start_time.strftime('%B %Y') %></h4></div>
+
+              <div class="trip-desc">
+              <p class="desc"><%= truncate(tour.description, length: 100) { link_to 'more', tour_path(tour) } %></p>
+                  <p><strong>Spoken Languages:</strong>
+                  <% tour.collected_languages.each do |lang| %>
+                      <%= lang %>
+                  <% end %>
+                  </p>
+              </div>
+
+              <div class="trip-locat">
+
+                  <p><%= image_tag("pin.png" ,  alt:"") %><%=tour.category.name %></p>
+                  <%= link_to 'See Détails', tour, { class: 'line-btn', role: 'button' } %>
+                  <% if current_user == tour.owner %>
+                  <%= link_to 'Edit', edit_tour_path(tour), class: 'line-btn'%>
+                  <%= link_to 'Destroy', tour, method: :delete, data: { confirm: 'Are you sure?'} , class: 'line-btn red', role: 'button'  %>
+                  <% end %>
+              </div>
+            </div>
+        </div>
+      </div>
+    <% end %>
+    <% end %>
+  </div>
+  <% else %>
+  <div class="blank-msg">
+    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+    <h1>There are no trips here yet, be the first one to create one!</h1>
+  </div>
   <% end %>
   </div>
 </div>
