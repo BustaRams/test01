@@ -1,7 +1,7 @@
 <% if current_user.tours_users.active.where(tour: @tour).first.present? %>
-    <%= link_to 'Unsubscribe', tours_unsubscribe_path(id: @tour.id), method: :post, class: 'line-btn', role: 'button' %>
+    <%= link_to 'Leave', tours_unsubscribe_path(id: @tour.id), method: :post, class: 'line-btn', role: 'button' %>
 <% elsif current_user.tours_users.where(tour: @tour, kicked: true).first.present? %>
 
 <%else%>
-    <%= link_to 'Subscribe', tours_subscribe_path(id: @tour.id), method: :post, class: 'line-btn', role: 'button' %>
+    <%= link_to 'Join', tours_subscribe_path(id: @tour.id), method: :post, class: 'line-btn', role: 'button' %>
 <% end %>

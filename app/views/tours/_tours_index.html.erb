@@ -6,8 +6,6 @@
     </div>
 
   <% if @tours.present? || @tourstrip.present? %>
-
-
   <div class="row">
     <% @tours.each do |tour| %>
         <% next unless tour.present? %>
@@ -43,7 +41,7 @@
       </div>
     <% end %>
 
-
+ <!-- for show subscribed trip  -->
     <% if @tourstrip.present? %>
     <% @tourstrip.each do |tour| %>
         <% next unless tour.present? %>

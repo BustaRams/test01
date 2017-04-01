@@ -29,7 +29,7 @@ ul.block li{display:block;}
 
 .fix-img{position: absolute;left: 50%;top: 50%;-webkit-transform: translate(-50%,-50%);-ms-transform: translate(-50%,-50%);transform: translate(-50%,-50%);}
 
-.alert{position: fixed;bottom: 30px;right:30px;margin: 0;z-index: 11;}
+// .alert{position: fixed;bottom: 30px;right:30px;margin: 0;z-index: 11;}
 
 header{-webkit-transition: all 0.4s ease;transition: all 0.4s ease;background:#fff;position: fixed;width: 100%;z-index:100;top:0;border-bottom:solid 1px #fff;}
 header.sticky{border-bottom:solid 1px #eee;}
@@ -280,3 +280,12 @@ footer .copy p{float:none;text-align:center;}
 textarea#tour_description {
     width: 100%;
 }
+
+.error {
+    color: red;
+    font-size: 14px;
+    position: unset;
+    bottom: -15px;
+    text-align: left;
+    right: 15px;
+  }

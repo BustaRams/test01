@@ -16,6 +16,7 @@ class ToursController < ApplicationController
     end
   end
 
+# GET /tours_by_owner
   def tours_by_owner
     @tours = Tour.includes(:owner,  :users, :languages).where(owner: current_user ).order("created_at DESC").all
     @tourstrip = Tour.includes(:tours_users).where(:tours_users => { :kicked => false,user_id: current_user, :active_subscription => true}).all
@@ -27,7 +28,7 @@ class ToursController < ApplicationController
     @idea = Idea.new
     @messages = @tour.messages.includes(:user)
     @message = Message.new
-    @members = @tour.tours_users.includes(:user)
+    @members = @tour.tours_users.includes(:user).where(kicked: false , active_subscription:true)
     @allowed_user =  current_user == @tour.owner || @tour.tours_users.active.where(user: current_user, kicked: false).first.present?
   end
 
