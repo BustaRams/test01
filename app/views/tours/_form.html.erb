@@ -1,12 +1,11 @@
 
 <%= simple_form_for(@tour) do |f| %>
-    <%= f.error_notification %>
-
   <div class="frm-wrap">
       <div class="gray-box">
+        <%= f.error_notification %>
           <div class="frm-line">
               <div class="frm-full">
-                  <div class="form-group">
+                  <div class="">
                     <%= f.input :name %>
                   </div>
               </div>
@@ -16,6 +15,8 @@
               <div class="form-group">
                 <%= f.label 'description' %>
                 <%= f.text_area :description %>
+                <p class="error"><%= @tour.errors.full_messages_for(:description)[0] if @tour.errors[:description].present? %></p>
+
               </div>
             </div>
           </div>
@@ -48,6 +49,8 @@
                   <div class="form-group">
                     <%= f.label 'Trip Image' %>
                     <%= f.file_field :tour_img %>
+                    <p class="error"><%= @tour.errors.full_messages_for(:tour_img)[0] if @tour.errors[:tour_img].present? %></p>
+
                   </div>
               </div>
           </div>

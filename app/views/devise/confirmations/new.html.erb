@@ -4,7 +4,6 @@
             <h1><span>Resend confirmation instructions</span></h1>
         </div>
         <%= simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
-          <%= f.full_error :confirmation_token %>
             <div class="frm-wrap">
               <%= f.error_notification %>
                 <div class="gray-box">

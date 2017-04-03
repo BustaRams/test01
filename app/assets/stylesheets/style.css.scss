@@ -113,7 +113,7 @@ header.sticky .navbar-default .navbar-toggle{margin-top:10px;}
 .trip-detail .trip-info .trip-name{margin:0 0 5px;font-size:18px;color:#222;text-transform: uppercase;font-weight: 900;}
 .trip-detail .trip-info .tag-wrap{color:#777;margin: 0 0 20px}
 .trip-detail .trip-info .trip-desc{margin:0 0 20px;}
-.trip-detail .trip-info .trip-desc p{font-size:14px;line-height:20px;margin:0 0 20px;color:#666;}
+.trip-detail .trip-info .trip-desc p{font-size:14px;line-height:20px;margin:0 0 20px;color:#666;  word-wrap: break-word;}
 .trip-detail .trip-info .trip-desc ul{margin: 0;padding: 0;list-style: none;}
 .trip-detail .trip-info .trip-desc ul li{display: inline-block;width: 48%;vertical-align: top;}
 .trip-detail .trip-info .trip-desc p strong{color: #333;font-weight: 700;}
@@ -282,10 +282,12 @@ textarea#tour_description {
 }
 
 .error {
-    color: red;
+    color: #AD4942;
     font-size: 14px;
     position: unset;
     bottom: -15px;
     text-align: left;
     right: 15px;
   }
+
+.specified { word-break:break-all;}
