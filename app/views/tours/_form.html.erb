@@ -43,6 +43,12 @@
                     <%= f.select :language_id, Language.all.map { |r| [r.name, r.id] }, {include_blank: false}, { class: 'form-control'} %>
               </div>
             </div>
+            <div class="frm-full">
+                <div class="form-group">
+                  <%= f.label :language %>
+                  <%= f.select :language_id, Language.all.map { |r| [r.name, r.id] }, {include_blank: false}, { class: 'form-control'} %>
+            </div>
+          </div>
           </div>
           <div class="frm-line">
               <div class="frm-full">

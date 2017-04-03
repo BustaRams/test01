@@ -91,6 +91,12 @@ class ToursController < ApplicationController
   end
 
   def unsubscribe
+    @tour = Tour.find(params[:id])
+    user = @tour.tours_users.first.user
+    @tour.update(owner: user)
+    @tour.tours_users.first.destroy
+    # user.destroy
+
     subscription = current_user.tours_users.active.where(tour: @tour).first
     if subscription.present?
       subscription.update_attribute(:active_subscription, false)
