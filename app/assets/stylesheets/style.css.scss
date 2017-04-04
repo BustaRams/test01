@@ -226,6 +226,10 @@ display: -webkit-box;display: -webkit-flex;display: -ms-flexbox;display: flex;-w
 .modal-footer.text-center{text-align:center;}
 .confirm-line{text-align: center;margin: 20px 0 0;}
 
+a.remove_nested_fields {display: inline-block;padding: 8px 15px;border-radius: 100px;color: #a94442;margin-top: 10px;float: right;border: 1px solid #a94442;transition: all 0.4s;margin-bottom: 15px;}
+a.remove_nested_fields:hover{background:#a94442; color: #fff;}
+a.add_nested_fields {display: inline-block;padding: 8px 15px;border-radius: 100px;color: #3c763d;margin-top: 10px;float: left;border: 1px solid #3c763d;transition: all 0.4s;}
+a.add_nested_fields:hover{background:#3c763d; color: #fff;}
 @media(max-width:1100px){
 }
 @media(max-width:991px){
