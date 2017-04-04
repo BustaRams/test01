@@ -35,7 +35,10 @@ class ToursController < ApplicationController
   # GET /tours/new
   def new
     @tour = Tour.new
+    @tour.tour_languages.build
     @categories = Category.all.map{ |c| [c.name, c.id] }
+    #@languages= Language.all
+
   end
 
   # GET /tours/1/edit
@@ -167,6 +170,6 @@ class ToursController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def tour_params
-      params.require(:tour).permit(:name, :description, :start_time, :category_id, :tour_img, :language_id)
+      params.require(:tour).permit(:name, :description, :start_time, :category_id, :tour_img, :language_id, tour_languages_attributes: [:id, :language_id, :_destroy])
     end
 end

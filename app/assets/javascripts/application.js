@@ -15,4 +15,5 @@
 //= require bootstrap.min
 //= require turbolinks
 //= require cable
+//= require jquery_nested_form
 //= require_tree .
