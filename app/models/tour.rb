@@ -7,6 +7,9 @@ class Tour < ApplicationRecord
   has_many :messages
   has_many :languages, through: :users
   belongs_to :main_language, class_name: 'Language', foreign_key: 'language_id'
+  has_many :tour_languages
+
+  accepts_nested_attributes_for :tour_languages 
 
   validates_presence_of :name, :description, :owner_id, :start_time
 
