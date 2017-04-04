@@ -1,0 +1,59 @@
+.custom-borders{
+  margin: 5px;
+}
+
+.image-borders{
+  border-radius: 10px;
+  border: 1px;
+  border-style: solid;
+  border-color: #2b669a;
+}
+
+.custom-index-div{
+  text-align: center;
+  background-color: rgba(41, 102, 154, 0.41);
+  height: 100%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.img-container{
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.tour-description{
+  height: 56px;
+}
+.spoken-languages{
+  height: 90px;
+  overflow-y: auto;
+}
+
+.trip-members{
+  height: 320px;
+  overflow-y: auto;
+}
+
+.center-text{
+  text-align: center;
+}
+
+.paddings{
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.general-info{
+  height: 150px;
+  overflow-y: auto;
+}
+
+.ideas-board{
+  height: 220px;
+  overflow-y: auto;
+}
+
+.chat-area{
+  height: 220px;
+  overflow-y: auto;
+}

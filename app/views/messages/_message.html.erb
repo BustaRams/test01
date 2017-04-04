@@ -1,0 +1,19 @@
+<div class="msg-block">
+  <div class="user-det">
+    <h4 data-id="<%= message.user.id %>">
+      <%= message.user.Last_name%>
+    </h4>
+    <span class="time">
+      <%= message.created_at.strftime('%H:%M:%S %d %B %Y') %>
+    </span>
+  </div>
+  <div class="msg">
+    <%= message.body %>
+  </div>
+</div>
+<script>
+  color_array = {1:'#13a1c5', 2:'#e51050',3:'#4b9630',4:'#e58810',5:'#10e5dd',6:'#9e10e5'};
+  user_id = <%= message.user.id %>;
+  color_value = user_id%9;
+  $('h4[data-id='+user_id+']').css('color', color_array[color_value])
+</script>

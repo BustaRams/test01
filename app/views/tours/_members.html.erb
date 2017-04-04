@@ -1,0 +1,32 @@
+<div class="table-responsive tbl-list">
+    <table class="table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Joined At</th>
+            <th>Status</th>
+            <th colspan="1"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row"> 1 </th>
+            <td><%= [@tour.owner.First_name,@tour.owner.Last_name.each_char.first].join(' ') %></td>
+            <td><%= @tour.created_at.strftime('%H:%M:%S %d %B %Y')  %></td>
+            <td><%= 'Active' %></td>
+            <td></td>
+          </tr>
+
+          <% @members.each_with_index do |link, index| %>
+              <tr>
+                <th scope="row"><%= index + 2 %></th>
+                <td><%= [ link.user.First_name,link.user.Last_name.each_char.first].join(' ') %></td>
+                <td><%= link.created_at.strftime('%H:%M:%S %d %B %Y')  %></td>
+                <td><%= link.kicked? ? 'Kicked' : 'Active' %></td>
+                <td class="action"><%= link_to('Kick', tour_kick_path(@tour.id, { user_id: link.user_id }), 'data-confirm' => "Are you sure?", method: :post, class: 'fill-btn', role: 'button' ) if @tour.owner == current_user && !link.kicked? %></td>
+              </tr>
+          <% end %>
+        </tbody>
+    </table>
+</div>

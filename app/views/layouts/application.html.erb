@@ -1,66 +1,33 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Voyajers</title>
-    <%= csrf_meta_tags %>
+<head>
+  <title>Voyajers | Home</title>
+  <%= csrf_meta_tags %>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+<body>
 
-  <body>
+<%= render 'layouts/header' %>
+  <% if notice %>
+  <div class="alert alert-info alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <%= notice %>
+  </div>
+  <% end %>
+  <% if alert %>
+  <div class="alert alert-danger alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <%= alert %>
+  </div>
+  <% end %>
 
-  	<nav class="navbar navbar-default">
-  		
-  		<div class="container">
-  			
-  		<div class="navbar-header">
-  			<%= link_to "Voyajers", root_path, class: "navbar-brand" %>
-  		</div>
+  <%= yield %>
+  <%= render 'layouts/footer' %>
 
-  		<ul class="nav navbar-nav">
 
-  			<% if user_signed_in? %>
-  				<li><%= link_to "Log Out", destroy_user_session_path, method: :delete %></li>
-
-  			<% else %>
-
-  				<li><%= link_to "Sign Up", new_user_registration_path %></li>
-  				<li><%= link_to "Log In", new_user_session_path %></li>
-
-  			<% end %>
-  	
-  		</ul>
-
-  		<ul class="nav navbar-nav navbar-right">
-
-      <li class ="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Categories <span class="caret"></span></a>
-        <ul class="dropdown-menu" role="menu">
-           <% Category.all.each do |category| %>
-            <li class="<%= 'active' if params[:category] == category.name %>">
-              <%= link_to category.name, trips_path(category: category.name), class: "link" %>
-            </li> 
-              <% end %>
-        </ul>
-
-      </li>
-  			<% if user_signed_in? %>
-  				<li><%= link_to "Create Trip", new_trip_path %></li>
-  			<% end %>
-
-  		</ul>
-
-  		</div>
-
-  	</nav>
-
-	<p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-
-    <div class="container">
-    <%= yield %>
-    </div>
-
-  </body>
+</body>
 </html>

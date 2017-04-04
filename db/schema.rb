@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170208213413) do
+ActiveRecord::Schema.define(version: 20170223131342) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -26,25 +26,77 @@ ActiveRecord::Schema.define(version: 20170208213413) do
     t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
   end
 
+  create_table "assemblies_parts", id: false, force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "group_id"
+    t.boolean "kicked",   default: false
+    t.index ["group_id"], name: "index_assemblies_parts_on_group_id"
+    t.index ["user_id"], name: "index_assemblies_parts_on_user_id"
+  end
+
   create_table "categories", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "trips", force: :cascade do |t|
-    t.string   "title"
-    t.text     "description"
-    t.string   "language"
-    t.string   "start"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
+  create_table "groups", force: :cascade do |t|
+    t.string   "name"
+    t.string   "description"
+    t.integer  "owner_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "ideas", force: :cascade do |t|
+    t.string   "text"
+    t.integer  "tour_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tour_id"], name: "index_ideas_on_tour_id"
+  end
+
+  create_table "languages", force: :cascade do |t|
+    t.string "name"
+    t.string "code"
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.text     "body"
     t.integer  "user_id"
+    t.integer  "tour_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tour_id"], name: "index_messages_on_tour_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
+  end
+
+  create_table "tours", force: :cascade do |t|
+    t.string   "name"
+    t.string   "description"
+    t.integer  "owner_id"
+    t.datetime "start_time"
     t.integer  "category_id"
-    t.string   "trip_img_file_name"
-    t.string   "trip_img_content_type"
-    t.integer  "trip_img_file_size"
-    t.datetime "trip_img_updated_at"
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.string   "tour_img_file_name"
+    t.string   "tour_img_content_type"
+    t.integer  "tour_img_file_size"
+    t.datetime "tour_img_updated_at"
+    t.boolean  "locked",                default: false
+    t.integer  "language_id"
+  end
+
+  create_table "tours_users", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "tour_id"
+    t.boolean  "kicked",              default: false
+    t.boolean  "active_subscription", default: true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["active_subscription"], name: "index_tours_users_on_active_subscription"
+    t.index ["tour_id"], name: "index_tours_users_on_tour_id"
+    t.index ["user_id"], name: "index_tours_users_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -63,6 +115,13 @@ ActiveRecord::Schema.define(version: 20170208213413) do
     t.boolean  "admin",                  default: false
     t.string   "First_name"
     t.string   "Last_name"
+    t.date     "birthday"
+    t.integer  "language_id"
+    t.boolean  "terms_conditions",       default: false
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

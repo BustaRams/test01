@@ -1,0 +1,4 @@
+<%= simple_form_for @idea , url: tours_new_idea_path(@tour.id) do |f| %>
+    <%= f.input :text, label: 'Post a new idea:', error: 'Idea text is mandatory.' %>
+    <%= f.button :submit, { class: 'line-btn' } %>
+<% end %>

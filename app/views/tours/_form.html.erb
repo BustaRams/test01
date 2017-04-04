@@ -1,0 +1,144 @@
+
+<%= simple_form_for(@tour) do |f| %>
+  <div class="frm-wrap">
+      <div class="gray-box">
+        <%= f.error_notification %>
+          <div class="frm-line">
+              <div class="frm-full">
+                  <div class="">
+                    <%= f.input :name %>
+                  </div>
+              </div>
+          </div>
+          <div class="frm-line">
+            <div class="frm-full">
+              <div class="form-group">
+                <%= f.label 'description' %>
+                <%= f.text_area :description %>
+                <p class="error"><%= @tour.errors.full_messages_for(:description)[0] if @tour.errors[:description].present? %></p>
+
+              </div>
+            </div>
+          </div>
+          <div class="frm-line">
+              <div class="frm-half">
+                  <div class="form-group">
+                    <%= f.input :start_time, as: :date, start_year: Date.today.year,
+                                max_years_allowed: 5,
+                                order: [:month, :year] %>
+
+                  </div>
+              </div>
+              <div class="frm-half">
+                  <div class="form-group">
+                    <%= f.label 'Category' %>
+                    <%= f.select :category_id, @categories, { label: "Choose a category:" }, { class: "form-control select" } %>
+                  </div>
+              </div>
+          </div>
+          <div class="frm-line">
+              <div class="frm-full">
+                  <div class="form-group">
+
+                    <%= nested_form_for @tour do |f| %>
+
+                      <%= f.fields_for :tour_languages do |tour_language| %>
+                          <%#= task_form.text_field :name %>
+
+                          <%= tour_language.select :language_id, Language.all.map { |r| [r.name, r.id] }, {include_blank: false}, { class: 'form-control' } %>
+                          <%= tour_language.link_to_remove "Remove this Language" %>
+
+                        <% end %>
+                        <p id="add_link"><%= f.link_to_add "Add a Language", :tour_languages %></p>
+                    <% end %>
+
+
+                    <%#= f.label :language %>
+                    <%#= f.select :language_id, Language.all.map { |r| [r.name, r.id] }, {include_blank: false}, { class: 'form-control' ,  multiple: true } %>
+              </div>
+            </div>
+            <!-- <div class="frm-full">
+                <div class="form-group">
+                  <%#= f.label :language %>
+                  <%#= f.select :language_id, Language.all.map { |r| [r.name, r.id] }, {include_blank: false}, { class: 'form-control'} %>
+            </div> -->
+          </div>
+          </div>
+          <div class="frm-line">
+              <div class="frm-full">
+                  <div class="form-group">
+                    <%= f.label 'Trip Image' %>
+                    <%= f.file_field :tour_img %>
+                    <p class="error"><%= @tour.errors.full_messages_for(:tour_img)[0] if @tour.errors[:tour_img].present? %></p>
+
+                  </div>
+              </div>
+          </div>
+      <div class="btn-wrap mar two"><%= f.button :submit, { class: 'fill-btn' } %></div>
+  </div>
+  <% end %>
+
+
+  <script type="text/javascript">
+
+  $(function() {
+    var fieldsCount,
+        maxFieldsCount = 4,
+        $addLink = $('a.add_nested_fields');
+
+    function toggleAddLink() {
+      $addLink.toggle(fieldsCount <= maxFieldsCount)
+    }
+
+    $(document).on('nested:fieldAdded', function() {
+      fieldsCount += 1;
+      toggleAddLink();
+    });
+
+    $(document).on('nested:fieldRemoved', function() {
+      fieldsCount -= 1;
+      toggleAddLink();
+    });
+
+    // count existing nested fields after page was loaded
+    fieldsCount = $('form .fields').length;
+    toggleAddLink();
+  })
+
+
+
+  $(function() {
+
+    $(document).on('nested:fieldAdded', function(e) {
+      var link = $(e.currentTarget.activeElement);
+      console.log(link);
+      if (!link.data('limit')) {
+        return;
+      }
+      if (link.siblings('.fields:visible').length >= link.data('limit')) {
+        link.hide();
+      }
+    });
+
+    $(document).on('nested:fieldRemoved', function(e) {
+      var link = $(e.target).siblings('a.add_nested_fields');
+      if (!link.data('limit')) {
+        return;
+      }
+      if (link.siblings('.fields:visible').length < link.data('limit')) {
+        link.show();
+      }
+    });
+
+
+  })
+  $( document ).ready(function() {
+      fieldsCount = $('form .fields').length;
+      console.log( fieldsCount );
+      if(fieldsCount == 1)
+      {
+        console.log($('a.remove_nested_fields'));
+        $('a.remove_nested_fields').hide();
+      }
+  });
+  </script>

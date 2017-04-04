@@ -1,0 +1,21 @@
+<div class="chat-wrap chat-area">
+    <h3 class="com-title">Trip <span>Chat</span></h3>
+    <div class="chat-block">
+        <div class="inner-chat" id="message-table-body" style="max-height: 450px; overflow-y: auto;">
+            <% @messages.each do |message| %>
+              <%= render partial: 'messages/message', locals: {message: message} %>
+            <% end  %>
+        </div>
+    </div>
+</div>
+<div id="messages" data-chat-room-id="<%= @tour.id %>"  class="chat-input">
+  <%= form_for @message, url: '#', method: :get do |f| %>
+      <div class="input-group">
+        <%= f.text_field :body, class: 'form-control' %>
+        <span class="input-group-btn">
+        <%= f.submit "Post", { class: 'fill-btn' } %>
+        </span>
+      </div>
+
+  <% end %>
+</div>

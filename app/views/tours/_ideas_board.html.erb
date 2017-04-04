@@ -1,0 +1,21 @@
+<div class="table-responsive tbl-list">
+    <table class="table">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>Idea text</th>
+        <th colspan="1"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <% index = 0 %>
+      <% @ideas.each do |idea| %>
+          <tr>
+            <th scope="row"><%= index += 1 %></th>
+            <td><p class="specified"><%= idea.text %></p></td>
+            <td class="action"><%= link_to('Delete', tours_delete_idea_path(@tour.id, { idea_id: idea.id }), 'data-confirm' => "Are you sure?", method: :delete, class: 'fill-btn', role: 'button' ) if @tour.owner == current_user %></td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+</div>

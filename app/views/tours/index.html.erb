@@ -1,0 +1,85 @@
+<% if params[:category].present? %>
+<div class="page-head flex-box">
+    <div class="inner-head">
+        <div class="container">
+            <h1 class="head-title"><%= params[:category] %></h1>
+            <ol class="breadcrumb">
+                <li><a href="#">Home</a></li>
+                <li class="active">Category</li>
+            </ol>
+        </div>
+    </div>
+</div>
+<% else %>
+<div class="banner flex-box">
+  <div class="banner-caption">
+    <h1 class="banner-title">Adventure<span>is out threr</span></h1>
+    <p>Find Trip and share idea that suits you best and make excited trip in journey</p>
+  </div>
+</div>
+<% end %>
+
+
+
+
+<%= render 'tours/tours_index' %>
+
+
+
+
+
+
+
+
+
+<script>
+$(window).scroll(function() {
+	if ($(this).scrollTop() > 1){
+		$('header').addClass("sticky");
+		$('body').addClass("sticky-b");
+	}
+	else{
+		$('header').removeClass("sticky");
+		$('body').removeClass("sticky-b");
+	}
+});
+
+$( window ).load(function(){
+    $(".fix-img").each(function(){
+
+        var img = $(this);
+        var image_heightA = img.height();
+        var image_widthA = img.width();
+        var parent_image_widthA = img.parent().width();
+        var parent_image_heightA = img.parent().height();
+        //if(width <= height)
+
+        if(image_heightA > parent_image_heightA && image_widthA > parent_image_widthA){
+
+            img.css('width',parent_image_widthA + 'px');
+            var tem_image_heightA = img.height();
+
+            if(tem_image_heightA > parent_image_heightA){
+                img.css('width','100%');
+            }
+            else{
+                img.css('width','auto');
+                img.css('height','100%');
+            }
+        }
+        else{
+            img.css('width',parent_image_widthA + 'px');
+            var tem_image_heightA = img.height();
+
+            if(tem_image_heightA > parent_image_heightA){
+                img.css('width','100%');
+            }
+            else{
+                img.css('width','auto');
+                img.css('height','100%');
+            }
+        }
+    });
+});
+
+</script>

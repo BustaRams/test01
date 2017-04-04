@@ -11,7 +11,7 @@ Rails.application.configure do
   config.eager_load = true
 
   # Full error reports are disabled and caching is turned on.
-  config.consider_all_requests_local       = false
+  config.consider_all_requests_local       = true
   config.action_controller.perform_caching = true
 
   # Disable serving static files from the `/public` folder by default since
@@ -53,7 +53,7 @@ Rails.application.configure do
   # config.cache_store = :mem_cache_store
 
   # Use a real queuing backend for Active Job (and separate queues per environment)
-  # config.active_job.queue_adapter     = :resque
+  config.active_job.queue_adapter = :inline #set to resque when ready :)
   # config.active_job.queue_name_prefix = "Voyajers_#{Rails.env}"
   config.action_mailer.perform_caching = false
 
@@ -83,4 +83,43 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # Some action cable for heroku configs.
+  config.action_cable.allowed_request_origins = ['https://bon-voyaj.herokuapp.com', 'http://bon-voyaj.herokuapp.com', 'bon-voyaj.herokuapp.com']
+  #config.action_cable.url = 'wss://bon-voyaj.herokuapp.com/cable'
+  config.action_cable.url = 'wss://bon-voyaj.herokuapp.com/cable'
+
+  # paperclip
+  config.paperclip_defaults = {
+      storage: :s3,
+      s3_credentials: {
+          bucket: ENV['S3_BUCKET_NAME'],
+          access_key_id: ENV['AWS_ACCESS_KEY_ID'],
+          secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],
+          s3_region: ENV['AWS_REGION']
+      }
+  }
+
+  # SMTP
+  config.action_mailer.default_url_options = { host: 'https://bon-voyaj.herokuapp.com'}
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+      address: 'smtp.gmail.com',
+      port: 587,
+      domain: 'gmail.com',
+      user_name: ENV['GOOGLE_MAIL'],
+      password: ENV['GOOGLE_PASSWORD'],
+      authentication: :login,
+      enable_starttls_auto: true
+  }
+
+=begin
+  storage: :s3,
+      s3_credentials: {
+      bucket: ENV.fetch('S3_BUCKET_NAME'),
+      access_key_id: ENV.fetch('AWS_ACCESS_KEY_ID'),
+      secret_access_key: ENV.fetch('AWS_SECRET_ACCESS_KEY'),
+      s3_region: ENV.fetch('AWS_REGION')
+  }
+=end
 end
