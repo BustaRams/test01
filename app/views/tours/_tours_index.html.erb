@@ -12,7 +12,7 @@
         <div class="col-xs-6 col-sm-6 col-md-4">
           <div class="trip-block">
             <div class="trip-img">
-                <%=  link_to(image_tag(tour.tour_img.url(:mini_img), class: "fix-img",alt:"" ,style:"width: 100%;") , tour_path(tour))  %>
+                <%=  link_to(image_tag(tour.tour_img.url(:mini_img), class: "fix-img",alt:"" , id: "detail",style:"width: 100%;", remote: true) , tour_path(tour))  %>
             </div>
             <div class="trip-info">
               <h3 class="trip-name"><%= tour.name %></h3>
@@ -48,7 +48,7 @@
         <div class="col-xs-6 col-sm-6 col-md-4">
           <div class="trip-block">
             <div class="trip-img">
-                <%=  link_to(image_tag(tour.tour_img.url(:mini_img), class: "fix-img",alt:"" ,style:"width: 100%;") , tour_path(tour))  %>
+                <%=  link_to(image_tag(tour.tour_img.url(:mini_img), class: "fix-img",alt:"",id: "demo",style:"width: 100%;", remote: true) , tour_path(tour))  %>
             </div>
             <div class="trip-info">
               <h3 class="trip-name"><%= tour.name %></h3>
@@ -110,6 +110,14 @@
 
 
 <script>
+
+// for superuser
+    $(function () {
+
+        $(".fix-img").click(function (e) {
+        });
+    });
+
 $(window).scroll(function() {
 	if ($(this).scrollTop() > 1){
 		$('header').addClass("sticky");

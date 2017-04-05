@@ -24,7 +24,14 @@
                 <td><%= [ link.user.First_name,link.user.Last_name.each_char.first].join(' ') %></td>
                 <td><%= link.created_at.strftime('%H:%M:%S %d %B %Y')  %></td>
                 <td><%= link.kicked? ? 'Kicked' : 'Active' %></td>
-                <td class="action"><%= link_to('Kick', tour_kick_path(@tour.id, { user_id: link.user_id }), 'data-confirm' => "Are you sure?", method: :post, class: 'fill-btn', role: 'button' ) if @tour.owner == current_user && !link.kicked? %></td>
+
+                <td class="action">
+                  <% if link.user.is_superuser == true %>
+                  <% else %>
+                    <%= link_to('Kick', tour_kick_path(@tour.id, { user_id: link.user_id }), 'data-confirm' => "Are you sure?", method: :post, class: 'fill-btn', role: 'button' ) if @tour.owner == current_user && !link.kicked? %>
+                  <% end %>
+                </td>
+
               </tr>
           <% end %>
         </tbody>

@@ -24,12 +24,20 @@ class ToursController < ApplicationController
 
   # GET /tours/1
   def show
+ # for superuser
+  @members = @tour.tours_users.includes(:user).where(kicked: false , active_subscription:true)
+  if current_user.is_superuser == true
+    subscription = current_user.tours_users.where(tour: @tour).first_or_initialize
+    subscription.active_subscription = true
+    subscription.save!
+  else
     @ideas = @tour.ideas
     @idea = Idea.new
     @messages = @tour.messages.includes(:user)
     @message = Message.new
-    @members = @tour.tours_users.includes(:user).where(kicked: false , active_subscription:true)
+
     @allowed_user =  current_user == @tour.owner || @tour.tours_users.active.where(user: current_user, kicked: false).first.present?
+  end
   end
 
   # GET /tours/new
@@ -95,9 +103,13 @@ class ToursController < ApplicationController
 
   def unsubscribe
     @tour = Tour.find(params[:id])
-    user = @tour.tours_users.first.user
-    @tour.update(owner: user)
-    @tour.tours_users.first.destroy
+    if @tour.owner==current_user
+
+      user = @tour.tours_users.first.user
+      @tour.update(owner: user)
+      @tour.tours_users.first.destroy
+
+    end
     # user.destroy
 
     subscription = current_user.tours_users.active.where(tour: @tour).first
