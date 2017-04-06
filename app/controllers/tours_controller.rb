@@ -115,7 +115,7 @@ class ToursController < ApplicationController
     subscription = current_user.tours_users.active.where(tour: @tour).first
     if subscription.present?
       subscription.update_attribute(:active_subscription, false)
-      redirect_to tour_path(@tour), :flash => { notice: 'You are unsubscribed.' }
+      redirect_to root_path(@tour), :flash => { notice: 'You are unsubscribed.' }
     else
       redirect_to tour_path(@tour), :flash => { alert: 'You don`t have active subscription to this trip.' }
     end
@@ -174,12 +174,19 @@ class ToursController < ApplicationController
     end
   end
 
+
+
+
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_tour
       @tour = Tour.find(params[:id])
     end
 
+    def contact_params
+      params.require(:contact).permit(:full_name, :email,:phone_number,:message)
+    end
     # Only allow a trusted parameter "white list" through.
     def tour_params
       params.require(:tour).permit(:name, :description, :start_time, :category_id, :tour_img, :language_id, tour_languages_attributes: [:id, :language_id, :_destroy])

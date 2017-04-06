@@ -1,0 +1,116 @@
+
+<div class="map-wrap">
+    <div id="map" style="position: relative;overflow: hidden;height: 500px;"></div>
+    <script>
+      var map;
+      function initMap() {
+
+        // Specify features and elements to define styles.
+        var styleArray = [
+          {
+            featureType: "all",
+            stylers: [
+             { saturation: -80 }
+            ]
+          },{
+            featureType: "road.arterial",
+            elementType: "geometry",
+            stylers: [
+              { hue: "#00ffee" },
+              { saturation: 50 }
+            ]
+          },{
+            featureType: "poi.business",
+            elementType: "labels",
+            stylers: [
+              { visibility: "off" }
+            ]
+          }
+        ];
+
+
+        // Create a map object and specify the DOM element for display.
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 51.5098464, lng: -0.0896579},
+          scrollwheel: false,
+          // Apply the map style array to the map.
+          styles: styleArray,
+          zoom: 16
+        });
+        // var image = '/assets/logo.png';
+        var beachMarker = new google.maps.Marker({
+          position: {lat: 51.5098464, lng: -0.0896579},
+          map: map
+          // icon: image
+        });
+      }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCMkVagUgCN0K0XMqnl8WrFSQlhgQXkv4w&callback=initMap"
+    async defer></script>
+</div>
+
+<div class="white-bg pad-block contact-wrap">
+  <div class="container">
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="contact-detail">
+                <h2 class="contact-title">Contact Info</h2>
+                <address>
+                  <strong class="name">Voyajers</strong>
+                  50 Mark Lane, London<br>
+                  EC3R 7QR<br>
+                  <span><abbr title="Phone">Telephone:</abbr> +44 (0)20 7264 1377</span>
+                  <span><abbr title="FaX">Fax:</abbr> +44 (0) 207 398 0109</span>
+                  <span><abbr title="FaX">Email:</abbr> <a href="mailto:info@voyajers.com">info@voyajers.com</a><span>
+                </span></span></address>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <h2 class="contact-title">Contact Form</h2>
+            <div class="contact-form">
+              <%= form_tag(enquiry_contact_details_path, {:method => :post}) do %>
+              <div class="form-group">
+              <%= label_tag :Full_Name%>
+               <%= text_field_tag :full_name, params[:full_name],class:"form-control", placeholder:"Full Name" %>
+             </div>
+             <div class="row">
+               <div class="col-sm-6">
+             <div class="form-group">
+             <%= label_tag :Email_Address%>
+              <%= text_field_tag :email, params[:email],class:"form-control", placeholder:"Email Address" %>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+            <%= label_tag :Phone_Number%>
+             <%= text_field_tag :number, params[:number],class:"form-control", placeholder:"Phone Number" %>
+           </div>
+         </div>
+       </div>
+           <div class="form-group">
+           <%= label_tag :Message%>
+            <%= text_area_tag :message, params[:message],class:"form-control", placeholder:"Message" %>
+          </div>
+          <div class="text-center">
+              <%= submit_tag "Send", :name => nil,class: "btn btn-default fill-btn" %>
+          </div>
+              <% end %>
+
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+<script>
+$(window).scroll(function() {
+	if ($(this).scrollTop() > 1){
+		$('header').addClass("sticky");
+		$('body').addClass("sticky-b");
+	}
+	else{
+		$('header').removeClass("sticky");
+		$('body').removeClass("sticky-b");
+	}
+});
+</script>

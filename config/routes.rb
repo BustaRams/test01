@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+
+
   ActiveAdmin.routes(self)
 
   mount ActionCable.server => '/cable'
@@ -20,4 +22,7 @@ Rails.application.routes.draw do
 
   post '/tours/:id/lock', to: 'tours#lock_tour', as: 'tours_lock'
   post '/tours/:id/unlock', to: 'tours#unlock_tour', as: 'tours_unlock'
+  get '/contact_us', to: 'static_pages#contactus', as: 'contact_us'
+  post '/static_pages/enquiry_contact_details', to: 'static_pages#enquiry_contact_details', as: 'enquiry_contact_details'
+
 end
