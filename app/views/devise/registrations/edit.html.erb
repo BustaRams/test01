@@ -61,7 +61,7 @@
                 <%= f.input :password_confirmation, required: false %>
                 <%= f.input :current_password, hint: "we need your current password to confirm your changes", required: true %>
               </div>
-              <div class="btn-wrap mar two">
+              <div class="text-center">
                 <p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
                 <%= f.button :submit, "Update" , { class: 'fill-btn' }  %>
               </div>

@@ -1,5 +1,30 @@
-<p>Welcome <%= @email %>!</p>
+<html>
+   <head>
+	  <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,500,700,900' rel='stylesheet' type='text/css'>
+	  <link href="css/montserrat.css" rel="stylesheet">
+      <style type="text/css">
+		  body	 {background-color: #eee; margin:0; padding:0; -webkit-font-smoothing: antialiased;font-family: 'Roboto', sans-serif;padding:0 15px;}
+		  table {border-collapse: collapse;}
+	  </style>
+   </head>
+   <body>
 
-<p>You can confirm your account email through the link below:</p>
+      <div class="wrapper" style="background-color: #fff;padding:0;max-width: 600px;margin: 20px auto;border-radius:3px;overflow:hidden;">
+		<div style="background-color: #00A3C2;padding:40px 30px; margin:0; display: block;">
+		  <h3 style="color:#fff;font-size:24px;margin:0;padding:0;font-family: 'montserrat';font-weight:700;text-align:center;">Cool, you just make registration on voyajers.</h3>
+		</div>
 
-<p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %></p>
+		<div style="padding:30px;margin:0; display: block;vertical-align:top; text-align:left;">
+			<p style="padding:0; margin:0; color:#000; font-size:14px; font-weight:400; font-family: 'Roboto', sans-serif; line-height:22px;">
+            	<strong style="color:#00A3C2;font-size:16px;">Hi <%= @user.First_name %> <%= @user.Last_name %>,</strong><br><br>
+                You just made registration in Voyajers on <%= @user.created_at.strftime("%B %d") %>.<br><br>
+                You can manage your trip and tours in your profile where you can confirm your account email through the link below:<br><br>
+                <%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %>.<br><br>
+                Hope you enjoy, you deserve it :) !<br><br><br><br>
+                Kindest regards,<br><span style="color:#00A3C2;">The voyajers team</span>
+            </p>
+		</div>
+	  </div>
+
+   </body>
+</html>
