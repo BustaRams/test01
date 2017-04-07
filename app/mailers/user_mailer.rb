@@ -4,7 +4,7 @@ class UserMailer < ApplicationMailer
     @email = email
     @msg = msg
     @number = mobile_number
-    mail( :to => "jka@narola.email",  :from => email,
+    mail( :to => "info@voyajers.com",  :from => email,
     :subject => 'New Inquery for the voyajers' )
   end
 end
