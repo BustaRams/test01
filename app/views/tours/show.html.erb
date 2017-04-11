@@ -16,8 +16,10 @@
                           <ul>
                               <li><p><strong>Owner:</strong><%= @tour.owner.First_name %> <%= @tour.owner.Last_name.each_char.first %></p></li>
                               <li><p><strong>Start Time:</strong> March, 2017</p></li>
-                              <li><p><strong>Languages:</strong> <%= @tour.main_language.try(:name) %></p></li>
-                              <li><p><strong>Spoken Languages:</strong> English</p></li>
+                              <!-- <li><p><strong>Languages:</strong> <%#= @tour.main_language.try(:name) %></p></li> -->
+                              <li><p><strong>Spoken Languages:</strong> <% @tour.tour_languages.each do |lang| %>
+                                  <%= Language.find(lang.language_id).name %>
+                              <% end %></p></li>
                           </ul>
                       </div>
                       <div class="trip-locat">

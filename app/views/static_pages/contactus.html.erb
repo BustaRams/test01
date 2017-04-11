@@ -1,54 +1,3 @@
-
-<div class="map-wrap">
-    <div id="map" style="position: relative;overflow: hidden;height: 500px;"></div>
-    <script>
-      var map;
-      function initMap() {
-
-        // Specify features and elements to define styles.
-        var styleArray = [
-          {
-            featureType: "all",
-            stylers: [
-             { saturation: -80 }
-            ]
-          },{
-            featureType: "road.arterial",
-            elementType: "geometry",
-            stylers: [
-              { hue: "#00ffee" },
-              { saturation: 50 }
-            ]
-          },{
-            featureType: "poi.business",
-            elementType: "labels",
-            stylers: [
-              { visibility: "off" }
-            ]
-          }
-        ];
-
-
-        // Create a map object and specify the DOM element for display.
-        var map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 51.5098464, lng: -0.0896579},
-          scrollwheel: false,
-          // Apply the map style array to the map.
-          styles: styleArray,
-          zoom: 16
-        });
-        // var image = '/assets/logo.png';
-        var beachMarker = new google.maps.Marker({
-          position: {lat: 51.5098464, lng: -0.0896579},
-          map: map
-          // icon: image
-        });
-      }
-    </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCMkVagUgCN0K0XMqnl8WrFSQlhgQXkv4w&callback=initMap"
-    async defer></script>
-</div>
-
 <div class="white-bg pad-block contact-wrap">
   <div class="container">
     <div class="row">
@@ -68,7 +17,7 @@
         <div class="col-sm-8">
             <h2 class="contact-title">Contact Form</h2>
             <div class="contact-form">
-              <%= form_tag(enquiry_contact_details_path, {:method => :post}) do %>
+              <%= form_tag(enquiry_contact_details_path, {:method => :post,:id => :contact_form}) do %>
               <div class="form-group">
               <%= label_tag :Full_Name%>
                <%= text_field_tag :full_name, params[:full_name],class:"form-control", placeholder:"Full Name" %>
@@ -103,14 +52,15 @@
 </div>
 
 <script>
-$(window).scroll(function() {
-	if ($(this).scrollTop() > 1){
-		$('header').addClass("sticky");
-		$('body').addClass("sticky-b");
-	}
-	else{
-		$('header').removeClass("sticky");
-		$('body').removeClass("sticky-b");
-	}
+$(document).ready(function () {
+  $("#contact_form").validate({
+    rules: {
+      email: {required: true}
+      // full_name: {required: true, full_name: true},
+      // number: {required: true, phone: true},
+      // message: {required: true, message: true}
+    }
+  });
 });
+
 </script>

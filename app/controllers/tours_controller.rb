@@ -19,7 +19,8 @@ class ToursController < ApplicationController
 # GET /tours_by_owner
   def tours_by_owner
     @tours = Tour.includes(:owner,  :users, :languages).where(owner: current_user ).order("created_at DESC").all
-    @tourstrip = Tour.includes(:tours_users).where(:tours_users => { :kicked => false,user_id: current_user, :active_subscription => true}).all
+   @tourstrip = Tour.includes(:tours_users).where(:tours_users => { :kicked => false,user_id: current_user, :active_subscription => true}).all
+    # @tourstrip = Tour.all
   end
 
   # GET /tours/1
@@ -30,6 +31,13 @@ class ToursController < ApplicationController
     subscription = current_user.tours_users.where(tour: @tour).first_or_initialize
     subscription.active_subscription = true
     subscription.save!
+# for superuser to see all member chat and idea
+    @ideas = @tour.ideas
+    @idea = Idea.new
+    @messages = @tour.messages.includes(:user)
+    @message = Message.new
+
+    @allowed_user =  current_user == @tour.owner || @tour.tours_users.active.where(user: current_user, kicked: false).first.present?
   else
     @ideas = @tour.ideas
     @idea = Idea.new
