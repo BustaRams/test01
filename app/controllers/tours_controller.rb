@@ -112,12 +112,17 @@ class ToursController < ApplicationController
   def unsubscribe
     @tour = Tour.find(params[:id])
     if @tour.owner==current_user
-
+      # if @tour.tours_users.blank?
+      #   redirect_to tour_path, :flash => { alert: 'You are the only member of this trip.' }
+        # @tour.destroy
+        # render action: 'index'
+      # else
       user = @tour.tours_users.first.user
       @tour.update(owner: user)
       @tour.tours_users.first.destroy
 
     end
+  # end
     # user.destroy
 
     subscription = current_user.tours_users.active.where(tour: @tour).first

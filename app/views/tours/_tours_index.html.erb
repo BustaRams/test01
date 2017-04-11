@@ -21,9 +21,11 @@
               <div class="trip-desc">
               <p class="desc"><%= truncate(tour.description, length: 100) { link_to 'more', tour_path(tour) } %></p>
                   <p><strong>Spoken Languages:</strong>
-                  <% tour.tour_languages.each do |lang| %>
-                      <%= Language.find(lang.language_id).name %>
-                  <% end %>
+                  <%# tour.tour_languages.each do |lang| %>
+                      <%#= Language.find(lang.language_id).name %>
+                  <%# end %>
+
+                  <%= tour.tour_languages.map{|p| Language.find(p.language_id).name}.join(",")%>
                   </p>
               </div>
 
@@ -58,9 +60,10 @@
               <p class="desc"><%= truncate(tour.description, length: 100) { link_to 'more', tour_path(tour) } %></p>
                   <p><strong>Spoken Languages:</strong>
 
-                    <% tour.tour_languages.each do |lang| %>
-                        <%= Language.find(lang.language_id).name %>
-                    <% end %>
+                    <%# tour.tour_languages.each do |lang| %>
+                        <%#= Language.find(lang.language_id).name %>
+                    <%# end %>
+                    <%= tour.tour_languages.map{|p| Language.find(p.language_id).name}.join(",")%>
                   </p>
               </div>
 

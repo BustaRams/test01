@@ -17,9 +17,12 @@
                               <li><p><strong>Owner:</strong><%= @tour.owner.First_name %> <%= @tour.owner.Last_name.each_char.first %></p></li>
                               <li><p><strong>Start Time:</strong> March, 2017</p></li>
                               <!-- <li><p><strong>Languages:</strong> <%#= @tour.main_language.try(:name) %></p></li> -->
-                              <li><p><strong>Spoken Languages:</strong> <% @tour.tour_languages.each do |lang| %>
-                                  <%= Language.find(lang.language_id).name %>
-                              <% end %></p></li>
+                              <li><p><strong>Spoken Languages:</strong>
+                                <%# @tour.tour_languages.each do |lang| %>
+                                  <%#= Language.find(lang.language_id).name %>
+                              <%# end %>
+                                <%= @tour.tour_languages.map{|p| Language.find(p.language_id).name}.join(",")%>
+                            </p></li>
                           </ul>
                       </div>
                       <div class="trip-locat">
@@ -31,7 +34,11 @@
                                 <%= link_to 'Leave', tours_unsubscribe_path(id: @tour.id), method: :post, class: 'line-btn', role: 'button' %>
                                 <%= link_to 'Unlock the tour', tours_unlock_path(@tour), method: :post, class: 'line-btn', role: 'button' %>
                             <% else %>
+                            <% if @tour.tours_users.count == 0 %>
+                              <p><strong>*You can not Leave the Trip.</strong></p>
+                            <%else%>
                                 <%= link_to 'Leave', tours_unsubscribe_path(id: @tour.id), method: :post, class: 'line-btn', role: 'button' %>
+                            <%end%>
                                 <%= link_to 'Lock the tour', tours_lock_path(@tour), method: :post, class: 'line-btn', role: 'button' %>
                             <% end %>
                         <% end %>
