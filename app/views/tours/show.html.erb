@@ -60,12 +60,12 @@
                       <h3 class="com-title">Idea <span>Board</span></h3>
                   </div>
                   <%= render 'tours/ideas_board' %>
-                  <% if @tour.owner == current_user %>
+                  <% if @tour.owner == current_user || current_user.is_superuser == true %>
                       <%= render 'tours/owner_ideas_board' %>
                   <% end %>
                 <% end %>
               </div>
-              <% if @allowed_user %>
+              <% if @allowed_user || current_user.is_superuser == true %>
                 <div class="col-md-5">
                     <%= render 'tours/chat' %>
                 </div>

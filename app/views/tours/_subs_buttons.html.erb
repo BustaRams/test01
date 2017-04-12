@@ -2,16 +2,17 @@
     <% if current_user.tours_users.where(tour: @tour, kicked: true).first.present? %>
 
     <% else %>
-
-    
     <%= link_to 'Leave', tours_unsubscribe_path(id: @tour.id), method: :post, class: 'line-btn', role: 'button' %>
     <% end%>
 <%else%>
+<!-- Hide button form superuser -->
+<% if current_user.is_superuser == true%>
+<% else%>
     <%= link_to 'Join', "#", class: 'line-btn', role: 'button', id: 'join' %>
     <div id="dialog" style="display: none">
   </div>
 <% end %>
-
+<% end%>
 <div id="myModal" class="modal fade" role="dialog">
   <div class="modal-dialog">
 

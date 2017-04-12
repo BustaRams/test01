@@ -27,25 +27,24 @@ class ToursController < ApplicationController
   def show
  # for superuser
   @members = @tour.tours_users.includes(:user).where(kicked: false , active_subscription:true)
-  if current_user.is_superuser == true
-    subscription = current_user.tours_users.where(tour: @tour).first_or_initialize
-    subscription.active_subscription = true
-    subscription.save!
-# for superuser to see all member chat and idea
+#   if current_user.is_superuser == true
+#     subscription = current_user.tours_users.where(tour: @tour).first_or_initialize
+#     subscription.active_subscription = true
+#     subscription.save!
+# # for superuser to see all member chat and idea
+#     @ideas = @tour.ideas
+#     @idea = Idea.new
+#     @messages = @tour.messages.includes(:user)
+#     @message = Message.new
+#     @allowed_user =  current_user == @tour.owner || @tour.tours_users.active.where(user: current_user, kicked: false).first.present?
+#   else
     @ideas = @tour.ideas
     @idea = Idea.new
     @messages = @tour.messages.includes(:user)
     @message = Message.new
 
-    @allowed_user =  current_user == @tour.owner || @tour.tours_users.active.where(user: current_user, kicked: false).first.present?
-  else
-    @ideas = @tour.ideas
-    @idea = Idea.new
-    @messages = @tour.messages.includes(:user)
-    @message = Message.new
-
-    @allowed_user =  current_user == @tour.owner || @tour.tours_users.active.where(user: current_user, kicked: false).first.present?
-  end
+    @allowed_user =  current_user == @tour.owner || current_user.is_superuser == true || @tour.tours_users.active.where(user: current_user, kicked: false).first.present?
+  # end
   end
 
   # GET /tours/new
@@ -133,7 +132,7 @@ class ToursController < ApplicationController
  end
 
   def post_idea
-    @tour.owner == current_user || not_found
+    @tour.owner == current_user || current_user.is_superuser == true || not_found
 
     text = params.dig(:idea,:text)
     if  text.present? && @tour.ideas.create(text: text)

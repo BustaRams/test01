@@ -58,8 +58,7 @@
 
               <div class="trip-desc">
               <p class="desc"><%= truncate(tour.description, length: 100) { link_to 'more', tour_path(tour) } %></p>
-                  <p><strong>Spoken Languages:</strong>
-
+                  <p><strong>Spoken Languages:</strong>y
                     <%# tour.tour_languages.each do |lang| %>
                         <%#= Language.find(lang.language_id).name %>
                     <%# end %>
@@ -114,7 +113,6 @@
 
 
 <script>
-
 // for superuser
     $(function () {
 
