@@ -31,7 +31,11 @@
                             <%= render 'tours/subs_buttons' %>
                         <% else %>
                             <% if @tour.locked? %>
+                            <% if @tour.tours_users.count == 0 %>
+                              <%= link_to 'Leave', tours_trip_leave_path(id: @tour.id), method: :delete, class: 'line-btn', role: 'button' %>
+                            <%else%>
                                 <%= link_to 'Leave', tours_unsubscribe_path(id: @tour.id), method: :post, class: 'line-btn', role: 'button' %>
+                            <%end%>
                                 <%= link_to 'Unlock the tour', tours_unlock_path(@tour), method: :post, class: 'line-btn', role: 'button' %>
                             <% else %>
                             <% if @tour.tours_users.count == 0 %>
