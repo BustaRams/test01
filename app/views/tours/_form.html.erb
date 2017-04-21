@@ -6,14 +6,16 @@
         <div class="frm-line">
           <div class="frm-full">
             <div class="">
-              <%= f.input :name %>
+              <label class="control-label string required" for="tour_to_point"><abbr title="required">*</abbr> Trip</label>
+              <%= f.text_field :name, class: 'form-control string required' %>
             </div>
           </div>
         </div>
         <div class="frm-line">
           <div class="frm-full">
             <div class="form-group">
-              <%= f.input :from_point %>
+              <label class="control-label string required" for="tour_to_point"><abbr title="required">*</abbr> Starting in City</label>
+              <%= f.text_field :from_point, class: 'form-control string required' %>
               <p class="error"><%= @tour.errors.full_messages_for(:from_point)[0] if @tour.errors[:from_point].present? %></p>
             </div>
           </div>
@@ -21,7 +23,8 @@
         <div class="frm-line">
           <div class="frm-full">
             <div class="form-group">
-              <%= f.input :to_point %>
+              <label class="control-label string required" for="tour_to_point"><abbr title="required">*</abbr> Finishing in City</label>
+              <%= f.text_field :to_point, class: 'form-control string required' %>
               <p class="error"><%= @tour.errors.full_messages_for(:to_point)[0] if @tour.errors[:to_point].present? %></p>
             </div>
           </div>
@@ -56,7 +59,7 @@
         <div class="frm-line">
           <div class="frm-full">
             <div class="form-group">
-
+              <label class="control-label string required" for="tour_to_point"><abbr title="required">*</abbr> Languages spoken in this group</label>
               <%= nested_form_for @tour do |f| %>
 
                   <%= f.fields_for :tour_languages do |tour_language| %>
