@@ -184,10 +184,6 @@ class ToursController < ApplicationController
     end
   end
 
-
-
-
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_tour
@@ -199,6 +195,8 @@ class ToursController < ApplicationController
     end
     # Only allow a trusted parameter "white list" through.
     def tour_params
-      params.require(:tour).permit(:name, :description, :start_time, :category_id, :tour_img, :language_id, tour_languages_attributes: [:id, :language_id, :_destroy])
+      params.require(:tour).permit(:name, :description, :start_time, :category_id,
+                                   :tour_img, :language_id, :from_point, :to_point,
+                                   tour_languages_attributes: [:id, :language_id, :_destroy])
     end
 end

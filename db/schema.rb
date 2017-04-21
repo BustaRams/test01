@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170223131342) do
+ActiveRecord::Schema.define(version: 20170421111536) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -26,26 +26,10 @@ ActiveRecord::Schema.define(version: 20170223131342) do
     t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
   end
 
-  create_table "assemblies_parts", id: false, force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "group_id"
-    t.boolean "kicked",   default: false
-    t.index ["group_id"], name: "index_assemblies_parts_on_group_id"
-    t.index ["user_id"], name: "index_assemblies_parts_on_user_id"
-  end
-
   create_table "categories", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "groups", force: :cascade do |t|
-    t.string   "name"
-    t.string   "description"
-    t.integer  "owner_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
   end
 
   create_table "ideas", force: :cascade do |t|
@@ -71,6 +55,15 @@ ActiveRecord::Schema.define(version: 20170223131342) do
     t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
+  create_table "tour_languages", force: :cascade do |t|
+    t.integer  "tour_id"
+    t.integer  "language_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["language_id"], name: "index_tour_languages_on_language_id"
+    t.index ["tour_id"], name: "index_tour_languages_on_tour_id"
+  end
+
   create_table "tours", force: :cascade do |t|
     t.string   "name"
     t.string   "description"
@@ -85,6 +78,8 @@ ActiveRecord::Schema.define(version: 20170223131342) do
     t.datetime "tour_img_updated_at"
     t.boolean  "locked",                default: false
     t.integer  "language_id"
+    t.string   "from_point"
+    t.string   "to_point"
   end
 
   create_table "tours_users", force: :cascade do |t|
@@ -121,6 +116,7 @@ ActiveRecord::Schema.define(version: 20170223131342) do
     t.string   "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
+    t.boolean  "is_superuser",           default: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

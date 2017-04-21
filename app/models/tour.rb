@@ -11,7 +11,7 @@ class Tour < ApplicationRecord
 
   accepts_nested_attributes_for :tour_languages
 
-  validates_presence_of :name, :description, :owner_id, :start_time
+  validates_presence_of :name, :description, :owner_id, :start_time, :from_point, :to_point
 
   has_attached_file :tour_img, styles: {
       thumb: '100x100>',
