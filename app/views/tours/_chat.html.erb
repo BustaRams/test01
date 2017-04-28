@@ -8,10 +8,13 @@
         </div>
     </div>
 </div>
+
+
+
 <div id="messages" data-chat-room-id="<%= @tour.id %>"  class="chat-input">
   <%= form_for @message, url: '#', method: :get do |f| %>
       <div class="input-group">
-        <%= f.text_field :body, class: 'form-control' %>
+        <%= f.text_area :body, class: 'form-control' %>
         <span class="input-group-btn">
         <%= f.submit "Post", { class: 'fill-btn' } %>
         </span>
