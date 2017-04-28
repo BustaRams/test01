@@ -3,11 +3,11 @@ class Tour < ApplicationRecord
   belongs_to :owner, class_name: 'User', foreign_key: 'owner_id'
   has_many :tours_users
   has_many :users, through: :tours_users
-  has_many :ideas
-  has_many :messages
+  has_many :ideas, dependent: :destroy
+  has_many :messages, dependent: :destroy
   has_many :languages, through: :users
   belongs_to :main_language, class_name: 'Language', foreign_key: 'language_id'
-  has_many :tour_languages
+  has_many :tour_languages, dependent: :destroy
 
   accepts_nested_attributes_for :tour_languages
 
