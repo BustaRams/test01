@@ -1,14 +1,14 @@
 <div class="msg-block">
   <div class="user-det">
     <h4 data-id="<%= message.user.id %>">
-      <%= message.user.Last_name%>
+      <%= message.user.First_name%>
     </h4>
     <span class="time">
       <%= message.created_at.strftime('%H:%M:%S %d %B %Y') %>
     </span>
   </div>
   <div class="msg">
-    <%= message.body %>
+    <%= auto_link(message.body) %>
   </div>
 </div>
 <script>
